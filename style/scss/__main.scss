@@ -1,0 +1,56 @@
+@import "__colors.scss";
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 600;
+  src: url("fonts/Raleway-SemiBold.ttf"),
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 900;
+  src: url("fonts/Raleway-ExtraBold.ttf"),
+}
+
+.content-block {
+  max-width: 1136;
+  margin: 0 auto;
+
+  @media (max-width: 1136px) {
+    padding: 0 16px;
+  }
+}
+
+html {
+  background-color: #E1E2E1;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway";
+  list-style: none;
+  text-decoration: none;
+  color: $main-black-color;
+
+}
+
+.green-btn {
+  padding: 16px 22px;
+  background-color: $main-green-color;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 36px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: $second-green-color;
+  }
+
+  &:active {
+    transform: scale(0.97, 0.97);
+  }
+}

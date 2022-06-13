@@ -1,0 +1,282 @@
+@import "__colors.scss";
+
+.header {
+  position: relative;
+  display: flex;
+  align-content: center;
+
+  @media (max-width: 1090px) {
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: none;
+    height: 100vh;
+    width: 100%;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  &__language {
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
+
+    &:hover .header__launguage-list {
+      display: flex;
+    }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: $main-green-color;
+    cursor: pointer;
+    z-index: 1;
+
+    span {
+      display: block;
+      background-color: white;
+      height: 2px;
+      transition: 0.3s;
+    }
+
+    span:nth-child(1) {
+      width: 90%;
+    }
+
+    span:nth-child(2) {
+      width: 70%;
+    }
+
+    span:nth-child(3) {
+      width: 50%;
+    }
+
+    @media (max-width: 1090px) {
+      display: flex;
+    }
+  }
+
+
+  &__launguage-list {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    background-color: $main-green-color;
+    border-radius: 6px;
+    overflow: hidden;
+
+    a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      transition: 0.3s;
+
+
+      &:hover {
+        background-color: $second-green-color;
+      }
+    }
+  }
+
+  &__favorite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    background-color: $main-green-color;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+
+      background-color: $second-green-color;
+
+      img {
+        animation: hear_hover 0.5s infinite alternate;
+      }
+    }
+
+    &:active {
+      transform: scale(0.97, 0.97);
+    }
+
+    @keyframes hear_hover {
+      100% {
+        transform: scale(1.2, 1.2);
+      }
+    }
+  }
+
+  &__btn-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    flex-grow: 1;
+
+    @media (max-width: 570px) {
+      display: none;
+    }
+  }
+}
+
+.navigation {
+  display: flex;
+
+  ul {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    li {
+      height: max-content;
+    }
+
+    @media (max-width: 1090px) {
+      display: none;
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 30px 36px;
+    font-weight: 600;
+    transition: 0.3s;
+
+    &:hover {
+      color: $main-green-color;
+    }
+  }
+
+  &__logo {
+    display: block;
+
+    img {
+      width: 150px;
+      height: 90px;
+      object-fit: cover;
+    }
+  }
+}
+
+body.active {
+  overflow: hidden;
+}
+
+body.active {
+  .header__burger {
+    span {
+      transform-origin: center;
+      width: 100%;
+    }
+
+    span:nth-child(1) {
+      transform-origin: center;
+      transform: rotate(45deg) translateX(3px) translateY(2px);
+    }
+
+    span:nth-child(2) {
+      display: none;
+    }
+
+    span:nth-child(3) {
+      transform-origin: center;
+      transform: rotate(-45deg) translateX(3px) translateY(-2px);
+    }
+  }
+
+  .mobile-menu {
+
+    &__language {
+      display: none;
+      gap: 16px;
+      padding: 16px 36px;
+
+      @media (max-width: 570px) {
+        display: flex;
+      }
+
+      a.active {
+        font-weight: 900;
+        color: $main-green-color;
+        border-bottom: 2px solid $main-green-color;
+      }
+    }
+
+    &__btn-wrap {
+
+      @media (max-width: 365px) {
+        padding: 16px;
+      }
+    }
+
+    &__nav {
+      padding: 88px 0 0 0;
+
+      .navigation__link {
+        padding: 16px 36px;
+      }
+    }
+
+
+    &__wrap {
+      display: flex;
+      justify-content: flex-end;
+      width: 70%;
+      height: 100%;
+      background-color: $main-gray-color;
+      transform: translateX(100%);
+      animation: showMobMenu 0.3s forwards;
+
+      @media (max-width: 570px) {
+        width: 80%;
+      }
+
+      @keyframes showMobMenu {
+
+        0% {
+          transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+
+  .hide {
+    animation: hideMobMenu 0.2s forwards;
+
+    @keyframes hideMobMenu {
+
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  .header__mobile {
+    display: flex;
+  }
+
+}
