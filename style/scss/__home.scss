@@ -1,0 +1,133 @@
+@import "_colors";
+
+.main {
+  padding: 82px 0 108px 0;
+
+  .section-title {
+    max-width: 620px;
+  }
+
+  &__link {
+    position: relative;
+    font-size: 18px;
+    color: $main-green-color;
+
+    &::after {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      content: "";
+      width: 0;
+      height: 2px;
+      border-radius: 30px;
+      background-color: $main-green-color;
+      transition: 0.3s;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    &::before {
+      position: absolute;
+      left: -26px;
+      top: 7px;
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 100px;
+      background-color: $main-green-color;
+    }
+
+  }
+
+  &__link-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: right;
+    list-style-type: none;
+
+    @media (max-width: 900px) {
+      text-align: left;
+      padding-left: 30px;
+    }
+  }
+
+  &__title-wrap {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 100px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+  }
+
+  .swiper-button-prev {
+    background: url('./icons/ic_arrow-prev.svg') no-repeat;
+
+    &:hover {
+      background: url('./icons/ic_arrow-prev-hover.svg') no-repeat;
+
+    }
+  }
+
+  .swiper-button-next {
+    background: url('./icons/ic_arrow-next.svg') no-repeat;
+
+    &:hover {
+      background: url('./icons/ic_arrow-next-hover.svg') no-repeat;
+
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 54px;
+    height: 54px;
+
+    &::after {
+      content: none;
+    }
+  }
+
+  .swiper-button-next {
+    right: 160px;
+  }
+
+  .swiper-button-prev {
+    left: 160px;
+  }
+
+  .swiper-pagination-bullet {
+    position: relative;
+    background: white;
+    opacity: 1;
+  }
+
+  .swiper-horizontal>.swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-pagination-custom,
+  .swiper-pagination-fraction {
+    bottom: 36px;
+  }
+
+  .swiper-pagination-bullet-active::after {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 100px;
+    background-color: white;
+    opacity: 0.5;
+  }
+
+  &__slider {
+    height: 680px;
+  }
+}
