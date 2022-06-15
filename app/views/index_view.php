@@ -57,21 +57,63 @@
   <div class="main__slider">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
-        <div class="swiper-slide">Slide 4</div>
-        <div class="swiper-slide">Slide 5</div>
-        <div class="swiper-slide">Slide 6</div>
-        <div class="swiper-slide">Slide 7</div>
-        <div class="swiper-slide">Slide 8</div>
-        <div class="swiper-slide">Slide 9</div>
+        <?php for ($i = 0; $i < 10; $i++) { ?>
+          <div class="swiper-slide">
+            <img class="main__slider-img" src="<?= SERVER_URL ?>style/test-imgs/test1.svg" alt="img">
+          </div>
+        <?php  } ?>
+
       </div>
+      <div class="main__slider-filter"></div>
+
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
 
     </div>
+
+</section>
+
+<section class="about content-block">
+  <h2 class="section-title center">Про Компанію</h2>
+  <div class="about__content">
+    <span class="about__years">14 років 1000+ об’єктів</span>
+    <button class="green-btn">Карта об’єктів</button>
+    <span class="about__title">Your Green Property — Це агенство нерухомості</span>
+    <span class="about__text">
+      Основною послугою є те що ми можемо підібрати нерухомість по індивідуальних критеріях замовника, яку він може придбати з повним супроводом та підтримкою агентства!
+      <br>
+      <br>
+      Ми працюємо з 2008 року на ринку нерухомості в Карпатському регіоні — Яремче, Татарові, Микуличині, Яблуниці, Паляниці (Буковель) тощо.
+      <br>
+      <br>
+      Наше агенство надає весь спектр послуг:
+      • Пошук та підбір ділянок за вашими критеріями
+      • Купівля-продаж
+      • Підготовка, отримання та реєстрація повного пакету документів для всіх видів угод із нерухомістю.
+    </span>
+  </div>
+
+  <div class="about__group">
+    <a href="/" class="about__group-item">
+      <img class="about__img-bcg" src="<?= SERVER_URL ?>style/test-imgs/group1.png" alt="img">
+      <img class="about__group-ic" src="<?= SERVER_URL ?>style/icons/ic_sun.svg" alt="img">
+      <span class="about__group-text">Земельні ділянки</span>
+    </a>
+
+    <a href="/" class="about__group-item">
+      <img class="about__img-bcg" src="<?= SERVER_URL ?>style/test-imgs/group2.png" alt="img">
+      <img class="about__group-ic" src="<?= SERVER_URL ?>style/icons/ic_cottages.svg" alt="img">
+      <span class="about__group-text">Будинки та котеджі</span>
+    </a>
+
+    <a href="/" class="about__group-item">
+      <img class="about__img-bcg" src="<?= SERVER_URL ?>style/test-imgs/group3.png" alt="img">
+      <img class="about__group-ic" src="<?= SERVER_URL ?>style/icons/ic_commerce.svg" alt="img">
+      <span class="about__group-text">Комерція</span>
+
+    </a>
+  </div>
 
 </section>
 <script src="<?= SERVER_URL ?>js/swiper-bundle.min"></script>
