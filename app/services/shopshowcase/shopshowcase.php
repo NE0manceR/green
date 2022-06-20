@@ -227,7 +227,7 @@ class shopshowcase extends Controller {
 						else
 							$_SESSION['option']->paginator_total = count($products);
 					}
-					$this->load->page_view('group_view', array('products' => $products, 'use_filter' => true, 'filters' => $filters, 'filter_minMaxPrices' => $filter_minMaxPrices));
+					$this->load->page_view('group_view', array('products' => $products, 'use_filter' => true));
 				}
 			}
 			else

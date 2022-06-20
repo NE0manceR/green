@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,cADU,AACT,MAAM,AAAC,CACJ,OAAO,CAAE,OAAO,CAKnB,AAHG,AAAA,iBAAiB,CAJzB,cAAc,AACT,MAAM,AAGiB,CAChB,OAAO,CAAE,OAAO,CACnB",
+    "sources": [
+        "lg-fullscreen.scss"
+    ],
+    "names": [],
+    "file": "lg-fullscreen.min.css"
+}

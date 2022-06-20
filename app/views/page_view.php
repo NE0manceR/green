@@ -1,43 +1,46 @@
-<html lang="<?=$_SESSION['language']?>" prefix="og: http://ogp.me/ns#">
+<html lang="<?= $_SESSION['language'] ?>" prefix="og: http://ogp.me/ns#">
+
 <head>
-	<title><?=$_SESSION['alias']->title?></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="<?=$_SESSION['alias']->title?>">
-    <meta name="description" content="<?=$_SESSION['alias']->description?>">
-    <meta name="keywords" content="<?=$_SESSION['alias']->keywords?>">
-    <meta name="author" content="webspirit.com.ua">
+	<title><?= $_SESSION['alias']->title ?></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="title" content="<?= $_SESSION['alias']->title ?>">
+	<meta name="description" content="<?= $_SESSION['alias']->description ?>">
+	<meta name="keywords" content="<?= $_SESSION['alias']->keywords ?>">
+	<meta name="author" content="webspirit.com.ua">
 
-    <meta property="og:locale"             content="<?=$_SESSION['language']?>_UA" />
-    <meta property="og:title"              content="<?=$_SESSION['alias']->title?>" />
-    <meta property="og:description"        content="<?=$_SESSION['alias']->description?>" />
-    	<?php if(!empty($_SESSION['alias']->image)) { ?>
-	<meta property="og:image"			   content="<?=IMG_PATH.$_SESSION['alias']->image?>" />
-    	<?php } ?>
+	<meta property="og:locale" content="<?= $_SESSION['language'] ?>_UA" />
+	<meta property="og:title" content="<?= $_SESSION['alias']->title ?>" />
+	<meta property="og:description" content="<?= $_SESSION['alias']->description ?>" />
+	<?php if (!empty($_SESSION['alias']->image)) { ?>
+		<meta property="og:image" content="<?= IMG_PATH . $_SESSION['alias']->image ?>" />
+	<?php } ?>
 
-	<?=html_entity_decode($_SESSION['option']->global_MetaTags, ENT_QUOTES)?>
-    <?=html_entity_decode($_SESSION['alias']->meta, ENT_QUOTES)?>
+	<?= html_entity_decode($_SESSION['option']->global_MetaTags, ENT_QUOTES) ?>
+	<?= html_entity_decode($_SESSION['alias']->meta, ENT_QUOTES) ?>
 
-	<link rel="shortcut icon" href="<?=SERVER_URL?>style/admin/images/whitelion-black.png">
+	<link rel="shortcut icon" href="<?= SERVER_URL ?>style/admin/images/whitelion-black.png">
 
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-	<!-- <link href="<?=SERVER_URL?>assets/font-awesome-5.15.1/css/all.min.css" rel="stylesheet" /> -->
-	<!-- <link href="<?=SERVER_URL?>style/ws__main.css" rel="stylesheet" /> -->
-	<link href="<?=SERVER_URL?>assets/swiper/swiper-bundle.min.css" rel="stylesheet" />
-	<link href="<?=SERVER_URL?>style/styles.min.css?v1.1" rel="stylesheet" />
-	<script type="text/javascript" src="<?=SERVER_URL?>assets/jquery/jquery-3.5.1.min.js"></script>
+	<!-- <link href="<?= SERVER_URL ?>assets/font-awesome-5.15.1/css/all.min.css" rel="stylesheet" /> -->
+	<!-- <link href="<?= SERVER_URL ?>style/ws__main.css" rel="stylesheet" /> -->
+	<link href="<?= SERVER_URL ?>style/styles.min.css?v1.1" rel="stylesheet" />
+	<script type="text/javascript" src="<?= SERVER_URL ?>assets/jquery/jquery-3.5.1.min.js"></script>
 
 </head>
+
 <body>
-     
+	<?php $all_g = $this->load->function_in_alias('catalog', '__get_Groups', -1); ?>
+
+
 	<?php
-		include "@commons/header.php";
+	include "@commons/header.php";
 
-		echo('<main>');
-		if(isset($view_file)) require_once($view_file.'.php');
-		echo('</main>');
+	echo ('<main>');
+	if (isset($view_file)) require_once($view_file . '.php');
+	echo ('</main>');
 
-		include "@commons/footer.php";
+	include "@commons/footer.php";
 	?>
 
 	<script src="<?= SERVER_URL ?>js/script.js"></script>
@@ -80,4 +83,5 @@
 	*/
 	?>
 </body>
+
 </html>

@@ -1,4 +1,6 @@
-<link rel="stylesheet" type="text/css" href="<?=SERVER_URL.'style/'.$_SESSION['alias']->alias.'/shop.css'?>">
+<?php
+/*
+  <link rel="stylesheet" type="text/css" href="<?=SERVER_URL.'style/'.$_SESSION['alias']->alias.'/shop.css'?>">
 <link rel="stylesheet" type="text/css" href="/assets/lightSlider/css/lightslider.css">
 <link rel="stylesheet" type="text/css" href="/assets/lightGallery/css/lightgallery.css">
 
@@ -72,7 +74,7 @@
                         <td><?=$this->text('Артикул')?></td>
                         <td itemprop="sku"><?=$product->article_show?></td>
                     </tr>
-                    <?php */ 
+                    <?php 
                     $address = '';
                     if(!empty($product->options))
                     foreach ($product->options as $option) {
@@ -284,10 +286,10 @@
             include APP_PATH."views/@wl_comments/index_view.php";?>
         </div>
     </div>
-</main>
-
-<?php $this->load->js(['assets/jquery-ui/ui/minified/jquery-ui.min.js',
+</main><?php $this->load->js(['assets/jquery-ui/ui/minified/jquery-ui.min.js',
                         'assets/lightGallery/js/lightgallery.js',
                         'assets/lightSlider/js/lightslider.js',
                         'assets/lightGallery/modules/lg-thumbnail.min.js',
                         'js/'.$_SESSION['alias']->alias.'/product.js']); ?>
+*/ ?>
+

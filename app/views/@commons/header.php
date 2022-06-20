@@ -6,16 +6,16 @@
 
         <ul>
             <li>
-                <a class="navigation__link" href="">Каталог</a>
+                <a class="navigation__link" href="<?= SERVER_URL ?>catalog"><?= $this->text('Каталог', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href="">Карта об’єктів</a>
+                <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href="">Про нас</a>
+                <a class="navigation__link" href=""><?= $this->text('Про нас', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href="">Контакти</a>
+                <a class="navigation__link" href=""><?= $this->text('Контакти', 0) ?></a>
             </li>
         </ul>
     </nav>
@@ -38,7 +38,7 @@
                 <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
             </a>
         </div>
-        <button class="green-btn">Замовити дзвінок</button>
+        <button class="green-btn"><?= $this->text('Замовити дзвінок', 0) ?></button>
     </div>
 
     <div class="header__burger">
@@ -55,16 +55,16 @@
                     <a href="">Рус</a>
                 </li>
                 <li>
-                    <a class="navigation__link" href="">Каталог</a>
+                    <a class="navigation__link" href=""><?= $this->text('Каталог', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href="">Карта об’єктів</a>
+                    <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href="">Про нас</a>
+                    <a class="navigation__link" href=""><?= $this->text('Про нас', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href="">Контакти</a>
+                    <a class="navigation__link" href=""><?= $this->text('Контакти', 0) ?></a>
                 </li>
                 <li class=" mobile-menu__language mobile-menu__btn-wrap">
                     <div class="header__favorite">
@@ -72,7 +72,7 @@
                             <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
                         </a>
                     </div>
-                    <button class="green-btn">Замовити дзвінок</button>
+                    <button class="green-btn"><?= $this->text('Замовити дзвінок', 0) ?></button>
                 </li>
             </ul>
         </div>
