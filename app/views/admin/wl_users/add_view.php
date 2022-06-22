@@ -17,6 +17,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-3 control-label">Номер телефону</label>
+                        <div class="col-md-9">
+                            <input type="number" name="phone" class="form-control" value="<?=$this->data->re_post('phone')?>" placeholder="phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label">Ім'я користувача</label>
                         <div class="col-md-9">
                             <input type="text" name="name" class="form-control" value="<?=$this->data->re_post('name')?>" required placeholder="Ім'я користувача" />

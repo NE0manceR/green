@@ -88,7 +88,7 @@ class shopshowcase extends Controller {
 				$this->setProductPrice($product);
 				if(!empty($product->similarProducts))
 				{
-					if(!empty($_SESSION['option']->similarFolders)) {
+					if(is_array($product->similarProducts)) {
 						foreach ($product->similarProducts as $folder => &$similarProducts) {
 							$this->setProductsPrice($similarProducts);
 						}
@@ -227,11 +227,12 @@ class shopshowcase extends Controller {
 						else
 							$_SESSION['option']->paginator_total = count($products);
 					}
-					$this->load->page_view('group_view', array('products' => $products, 'use_filter' => true));
+					$this->load->page_view('group_view', array('products' => $products, 'use_filter' => true, 'filters' => $filters, 'filter_minMaxPrices' => $filter_minMaxPrices));
 				}
 			}
 			else
 			{
+				$filters = $filter_minMaxPrices = false;
 				if($products = $this->shop_model->getProducts())
 				{
 					$filters = $this->shop_model->getOptionsToGroup();
@@ -939,8 +940,12 @@ class shopshowcase extends Controller {
 	public function __get_Products($data = array())
 	{
 		$paginator_per_page = $_SESSION['option']->paginator_per_page;
+		$productOrder = $_SESSION['option']->productOrder;
+		$get_sale = $this->data->get('sale');
+		$get_availability = $this->data->get('availability');
 		$group = -1;
-		$noInclude = 0;
+		$noInclude = $_GET['sale'] = 0;
+		unset($_GET['availability']);
 		$active = true;
 		$getProductOptions = $additionalFileds = false;
 		if(isset($data['article']) && $data['article'] != '')
@@ -975,6 +980,9 @@ class shopshowcase extends Controller {
 		}
 
 		$_SESSION['option']->paginator_per_page = $paginator_per_page;
+		$_SESSION['option']->productOrder = $productOrder;
+		$_GET['sale'] = $get_sale;
+		$_GET['availability'] = $get_availability;
 		
 		return $products;
 	}
@@ -1118,20 +1126,21 @@ class shopshowcase extends Controller {
 					$products = $this->load->function_in_alias($marketingAliasId, '__update_Products', $products);
 				}
 
-			foreach ($products as $product) {
-				$product->discount = $product->price_before - $product->price;
-				if(!empty($_SESSION['currency']) && is_array($_SESSION['currency']) && isset($_SESSION['currency'][$product->currency]))
-				{
-					$product->price *= $_SESSION['currency'][$product->currency];
-					$product->old_price *= $_SESSION['currency'][$product->currency];
-					$product->discount *= $_SESSION['currency'][$product->currency];
+			if($products)
+				foreach ($products as $product) {
+					$product->discount = $product->price_before - $product->price;
+					if(!empty($_SESSION['currency']) && is_array($_SESSION['currency']) && isset($_SESSION['currency'][$product->currency]))
+					{
+						$product->price *= $_SESSION['currency'][$product->currency];
+						$product->old_price *= $_SESSION['currency'][$product->currency];
+						$product->discount *= $_SESSION['currency'][$product->currency];
+					}
+					
+					$product->price = $this->shop_model->formatPrice($product->price, true);
+					$product->old_price = $this->shop_model->formatPrice($product->old_price, true);
+					$product->price_format = $this->shop_model->formatPrice($product->price);
+					$product->old_price_format = $this->shop_model->formatPrice($product->old_price);
 				}
-				
-				$product->price = $this->shop_model->formatPrice($product->price, true);
-				$product->old_price = $this->shop_model->formatPrice($product->old_price, true);
-				$product->price_format = $this->shop_model->formatPrice($product->price);
-				$product->old_price_format = $this->shop_model->formatPrice($product->old_price);
-			}
 		}
 	}
 

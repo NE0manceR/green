@@ -1,6 +1,6 @@
-<footer class="footer">
+<!-- <footer class="footer">
   <div class="footer__bcg"></div>
-  <div class="footer__wrap content-block">
+  <div id="contacts" class="footer__wrap content-block">
     <div class="footer__contacts">
       <span class="section-title">Контакти</span>
       <span class="footer__under-title">Наша команда завжди на зв’язку</span>
@@ -48,4 +48,4 @@
     <span>Made by <span class="footer__strong">Grits</span></span>
   </div>
 
-</footer>
+</footer> -->

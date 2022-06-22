@@ -13,11 +13,18 @@
 			        </div>
 			    </div>
 			    <div class="form-group">
+			        <label class="col-md-3 control-label">Номер телефону</label>
+			        <div class="col-md-9">
+			            <input type="number" name="phone" class="form-control" value="<?=$user->phone?>" required placeholder="phone користувача"  autocomplete="off"/>
+			        </div>
+			    </div>
+			    <div class="form-group">
 			        <label class="col-md-3 control-label">Alias користувача</label>
 			        <div class="col-md-9">
 			            <input type="text" name="alias" class="form-control" value="<?=$user->alias?>" required placeholder="alias користувача"  autocomplete="off"/>
 			        </div>
-			    </div><div class="form-group">
+			    </div>
+				<div class="form-group">
 			        <label class="col-md-3 control-label">Ім'я користувача</label>
 			        <div class="col-md-9">
 			            <input type="text" name="name" class="form-control" value="<?=$user->name?>" required placeholder="Ім'я користувача"  autocomplete="off"/>

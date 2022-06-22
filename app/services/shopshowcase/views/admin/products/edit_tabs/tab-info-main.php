@@ -105,14 +105,28 @@
 					}
 			echo "</div></div>"; 
 		}
-		
-		if(!empty($product->similarProducts) && empty($_SESSION['option']->similarFolders)) { ?>
+
+		if(!empty($product->similarProducts)) { ?>
 			<div class="row m-b-10">
 				<div class="col-md-5 text-right">Аналоги / подібні</div>
 				<div class="col-md-7">
-				<?php foreach($product->similarProducts as $similarProduct) {
-					echo "<a href=\"/admin/{$similarProduct->link}\"><strong>{$similarProduct->article_show}</strong> {$similarProduct->name}</a><br>";
-				} if(!empty($storages)) { ?>
+				<?php foreach($product->similarProducts as $folderName => $similarProductOrFolder) {
+					if(is_array($similarProductOrFolder)) {
+						if($folderName != 'default') {
+							echo "<h5>{$folderName}:</h5>";
+						}
+						foreach($similarProductOrFolder as $similarProduct) {
+							$link = SITE_URL . "admin/{$similarProduct->link}";
+							echo "<a href=\"{$link}\"><strong>{$similarProduct->article_show}</strong> {$similarProduct->name}</a><br>";
+						}
+					}
+					else if(is_object($similarProductOrFolder)) {
+						$link = SITE_URL . "admin/{$similarProductOrFolder->link}";
+						echo "<a href=\"{$link}\"><strong>{$similarProductOrFolder->article_show}</strong> {$similarProductOrFolder->name}</a><br>";
+					}
+				}
+				
+				if(!empty($storages)) { ?>
 				<button class="btn btn-info btn-xs m-t-5" onclick="show_similarProductsInvoices()"><i class="fa fa-qrcode"></i> Показати наявність за аналогами</button>
 				<?php } ?>
 				</div>

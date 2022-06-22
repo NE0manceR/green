@@ -29,12 +29,14 @@ class wl_video_admin extends Controller {
 				$site="youtube";
 					if ($controler_video['host']=="youtu.be"){
 						$site_link=substr($controler_video['path'],1);
-					} else{
+					} elseif (array_key_exists('query', $controler_video)){
 						$first_marker = strpos( $controler_video['query'], '=')+1;
 						$second_marker=strpos( $controler_video['query'], '&');
 						if($second_marker != '') {$second_marker -=2;
 							$site_link=substr($controler_video['query'],$first_marker,$second_marker);
-						} else $site_link=substr($controler_video['query'],$first_marker);
+						} else $site_link=substr($controler_video['query'],$first_marker);					
+					} else {
+						$site_link=str_replace('/embed/', '', $controler_video['path']);					
 					}
 				}
 				elseif ($controler_video['host']=="vimeo.com"){

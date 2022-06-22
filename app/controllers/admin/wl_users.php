@@ -141,6 +141,7 @@ class wl_users_admin extends Controller {
                             $this->load->model('wl_user_model');
 
                             $user['name'] = $this->data->post('name');
+                            $user['phone'] = $this->data->post('phone');
                             $user['alias'] = $alias = $this->data->latterUAtoEN($user['name']);
                             $i = 2;
                             while($this->db->getAllDataById('wl_users', $alias, 'alias'))
@@ -242,7 +243,7 @@ class wl_users_admin extends Controller {
                                 $_POST['alias'] = $alias;
                             }
 
-                        foreach (['name' => "ім'я", 'alias' => "uri (alias)", 's_newsletter' => "Розсилка"] as $key => $name) {
+                        foreach (['phone' => "номер телефону", 'name' => "ім'я", 'alias' => "uri (alias)", 's_newsletter' => "Розсилка"] as $key => $name) {
                             $value = $this->data->post($key);
                             if($value !== NULL)
                                 if($user->$key != $value)

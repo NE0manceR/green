@@ -92,14 +92,31 @@ if($_SESSION['user']->admin) { ?>
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($product->similarProducts)) foreach($product->similarProducts as $similarProduct) { ?>
-                <tr>
-                    <td><a href="<?=SITE_URL.'admin/'.$similarProduct->link?>"><?=($_SESSION['option']->ProductUseArticle) ? $similarProduct->article_show : $similarProduct->id?></a></td>
-                    <td><a href="<?=SITE_URL.'admin/'.$similarProduct->link?>"><?= $similarProduct->name ?></a></td>
-                    <td><?= $similarProduct->price.' '.$similarProduct->currency ?></td>
-                    <td class="text-center"><button type="button" class="btn btn-sm btn-danger" onclick="deleteSimilarProduct(<?= $similarProduct->id?>, this);" >X</button></td>
-                </tr>
-            <?php } ?>
+            <?php foreach($product->similarProducts as $folderName => $similarProductOrFolder) {
+                if(is_array($similarProductOrFolder)) {
+                    if($folderName != 'default') {
+                        echo "<tr><td colspan='4'>{$folderName}:</td></tr>";
+                    }
+                    foreach($similarProductOrFolder as $similarProduct) {
+                        $link = SITE_URL . "admin/{$similarProduct->link}"; ?>
+                        <tr>
+                            <td><a href="<?=SITE_URL.'admin/'.$similarProduct->link?>"><?=($_SESSION['option']->ProductUseArticle) ? $similarProduct->article_show : $similarProduct->id?></a></td>
+                            <td><a href="<?=SITE_URL.'admin/'.$similarProduct->link?>"><?= $similarProduct->name ?></a></td>
+                            <td><?= $similarProduct->price.' '.$similarProduct->currency ?></td>
+                            <td class="text-center"><button type="button" class="btn btn-sm btn-danger" onclick="deleteSimilarProduct(<?= $similarProduct->id?>, this);" >X</button></td>
+                        </tr>
+                    <?php }
+                }
+                else if(is_object($similarProductOrFolder)) {
+                    $link = SITE_URL . "admin/{$similarProductOrFolder->link}"; ?>
+                    <tr>
+                        <td><a href="<?=SITE_URL.'admin/'.$similarProductOrFolder->link?>"><?=($_SESSION['option']->ProductUseArticle) ? $similarProductOrFolder->article_show : $similarProductOrFolder->id?></a></td>
+                        <td><a href="<?=SITE_URL.'admin/'.$similarProductOrFolder->link?>"><?= $similarProductOrFolder->name ?></a></td>
+                        <td><?= $similarProductOrFolder->price.' '.$similarProductOrFolder->currency ?></td>
+                        <td class="text-center"><button type="button" class="btn btn-sm btn-danger" onclick="deleteSimilarProduct(<?= $similarProductOrFolder->id?>, this);" >X</button></td>
+                    </tr>
+                <?php }
+            } ?>
             </tbody>
         </table>
     </div>

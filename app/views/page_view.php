@@ -34,6 +34,7 @@
 
 
 	<?php
+	include "@commons/modals.php";
 	include "@commons/header.php";
 
 	echo ('<main>');

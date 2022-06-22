@@ -253,6 +253,9 @@ class transfer_oc extends Controller
 		foreach ($oc_customer as $customer) {
 			$user = [];
 			$user['email'] = $customer->email;
+			$user['phone'] = '';
+			if($phone = $this->validator->getPhone($customer->telephone))
+				$user['phone'] = $phone;
 			$user['name'] = $customer->firstname .' '.$customer->lastname;
 			$user['alias'] = $this->data->latterUAtoEN($user['name']);
 			$user['type'] = $type[$customer->customer_group_id] ?? 6;
@@ -263,8 +266,6 @@ class transfer_oc extends Controller
 			if($id = $this->db->insertRow('wl_users', $user))
 			{
 				$this->db->register('signup', 'transfer from OpenCart', $id);
-				if($phone = $this->validator->getPhone($customer->telephone))
-					$this->db->insertRow('wl_user_info', ['user' => $id, 'field' => 'phone', 'value' => $phone, 'date' => $time]);
 				$inserted++;
 			}
 		}

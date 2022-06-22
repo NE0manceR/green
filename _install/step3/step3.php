@@ -30,7 +30,8 @@ if(file_exists($file_config))
 		$connect = new mysqli($config['db']['host'], $config['db']['user'], $config['db']['password'], $config['db']['database']);
 		$connect->set_charset("utf8");
 
-		$query = "INSERT INTO `wl_users` (`id`, `alias`, `email`, `name`, `type`, `status`, `last_login`, `registered`, `auth_id`, `password`) VALUES (1, '{$alias}', '{$email}', '{$name}', 1, 1, {$time}, {$time}, '{$auth_id}', '{$password}');";
+		$query = "INSERT INTO `wl_users` (`id`, `alias`, `email`, `phone`, `name`, `type`, `status`, `last_login`, `registered`, `auth_id`, `password`) VALUES (1, '{$alias}', '{$email}', '', '{$name}', 1, 1, {$time}, {$time}, '{$auth_id}', '{$password}');";
+		echo $query;
 		$connect->query($query);
 
 		$query = "INSERT INTO `wl_user_register` (`id`, `date`, `do`, `user`) VALUES (1, {$time}, 1, 1);";

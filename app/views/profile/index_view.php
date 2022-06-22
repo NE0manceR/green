@@ -20,7 +20,7 @@
 	                echo '<img src="'.$user_photo.'" class="mob_user_photo">';
 
 	        if($this->userIs()) { ?>
-	            <a href="<?= SITE_URL?>profile/<?=$user->alias?>" <?=($_SESSION['alias']->alias == 'cart') ? 'class="active"' : ''?>><i class="fas fa-shopping-cart"></i> <?=$this->text('Мої замовлення')?></a>
+	            <a href="<?= SITE_URL?>profile" <?=($_SESSION['alias']->alias == 'cart') ? 'class="active"' : ''?>><i class="fas fa-shopping-cart"></i> <?=$this->text('Мої замовлення')?></a>
 	            <!-- <a href="<?= SITE_URL?>profile/<?=$user->alias?>"><i class="fa fa-user"></i> <?=$this->text('Профіль')?></a> -->
 
 	            <?php $where_alias = array('alias' => '#ac.alias2', 'content' => '0');

@@ -14,9 +14,9 @@ class Profile extends Controller {
 
     public function index($uri = false)
     {
-        if($uri)
+        $this->load->model('wl_user_model');
+        if($uri && $this->userCan())
         {
-            $this->load->model('wl_user_model');
             if($user = $this->wl_user_model->getInfo($uri, false, 'alias'))
             {
                 $this->wl_alias_model->setContent($user->id, 202);
@@ -33,13 +33,17 @@ class Profile extends Controller {
         } 
         elseif($this->userIs())
         {
-            if(isset($_SESSION['user']->alias))
-                $this->redirect('profile/'.$_SESSION['user']->alias);
-            else {
-                session_destroy();
-                setcookie('auth_id', '', time() - 3600, '/');
-                $this->redirect('login');
-            }
+            if ($user = $this->wl_user_model->getInfo($_SESSION['user']->id)) {
+                $this->wl_alias_model->setContent($user->id, 202);
+                $_SESSION['alias']->title = $user->name . '. Кабінет користувача';
+                $_SESSION['alias']->name = $user->name;
+
+                if ($this->load->function_in_alias('cart', 'my', $user->id))
+                exit;
+
+                $this->load->profile_view(false, array('user' => $user));
+            } else
+                $this->load->page_404(false);
         }
         else
             $this->redirect('login');

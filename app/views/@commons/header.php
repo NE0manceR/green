@@ -12,10 +12,10 @@
                 <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href=""><?= $this->text('Про нас', 0) ?></a>
+                <a class="navigation__link" href="<?= SITE_URL ?>#about"><?= $this->text('Про нас', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href=""><?= $this->text('Контакти', 0) ?></a>
+                <a class="navigation__link" href="<?= SITE_URL ?>#contacts"><?= $this->text('Контакти', 0) ?></a>
             </li>
         </ul>
     </nav>
@@ -38,7 +38,7 @@
                 <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
             </a>
         </div>
-        <button class="green-btn"><?= $this->text('Замовити дзвінок', 0) ?></button>
+        <button id="call" class="green-btn"><?= $this->text('Замовити дзвінок', 0) ?></button>
     </div>
 
     <div class="header__burger">

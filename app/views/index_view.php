@@ -68,20 +68,17 @@
 
 <section class="main">
   <div class="main__title-wrap content-block">
-    <h1 class="section-title">Нерухомість
-      в Карпатському Регіоні
-    </h1>
+    <h1 class="section-title"><?= $_SESSION['alias']->name ?></h1>
 
     <ul class="main__link-wrap">
-      <li>
-        <a class="main__link" href="">Будинки та котеджі</a>
-      </li>
-      <li>
-        <a class="main__link" href="">Земельні ділянки</a>
-      </li>
-      <li>
-        <a class="main__link" href="">Комерція</a>
-      </li>
+      <?php if (!empty($all_g)) {
+        foreach ($all_g as $item) {
+      ?>
+          <li>
+            <a class="main__link" href="<?= SITE_URL . $item->link ?>"><?= $item->name ?></a>
+          </li>
+      <?php }
+      } ?>
     </ul>
   </div>
 
@@ -104,7 +101,7 @@
 
 </section>
 
-<section class="about content-block">
+<section id="about" class="about content-block">
   <h2 class="section-title center"><?= $this->text('Про Компанію', 0) ?></h2>
   <div class="about__content">
     <span class="about__years"><?= $this->text('14 років 1000+ об’єктів') ?></span>
@@ -119,13 +116,17 @@
   </div>
 
   <div class="group about__group">
-    <?php foreach ($all_g as $item) { ?>
-      <a href="<?= SITE_URL . $item->link ?>" class="group__item">
-        <img class="group__img-bcg" src="<?= IMG_PATH . $item->photo ?>" alt="img">
-        <img class="group__ic" src="<?= SERVER_URL ?>style/icons/group/ic_sun.svg" alt="img">
-        <span class="group__text"><?= $item->name ?></span>
-      </a>
-    <?php } ?>
+    <?php $i = 0;
+    if (!empty($all_g)) {
+      foreach ($all_g as $item) { ?>
+        <a href="<?= SITE_URL . $item->link ?>" class="group__item">
+          <img class="group__img-bcg" src="<?= IMG_PATH . $item->photo ?>" alt="img">
+          <img class="group__ic" src="<?= SERVER_URL ?>style/icons/group/ic_group-<?= $i ?>.svg" alt="img">
+          <span class="group__text"><?= $item->name ?></span>
+        </a>
+    <?php $i++;
+      }
+    } ?>
   </div>
 
 </section>

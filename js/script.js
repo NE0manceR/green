@@ -1,3 +1,5 @@
+// ========== mobile menu ==========
+
 let body = $('body');
 let mobile_menu_wrap = $('.mobile-menu__wrap');
 
@@ -20,4 +22,17 @@ function toggle_menu() {
     return;
   }
   body.toggleClass('active');
+}
+
+// ========== modal window ==========
+
+
+$('#call, .modal-bcg').on('click', function () {
+  console.log($(this))
+  toggleCallModal();
+})
+
+function toggleCallModal() {
+  $('.modal-wrap').fadeToggle(100);
+  $('.modal-bcg').fadeToggle(100);
 }

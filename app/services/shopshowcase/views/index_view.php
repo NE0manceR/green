@@ -60,13 +60,15 @@ $products = $this->load->function_in_alias('catalog', '__get_Products');
 			</span>
 		</div>
 		<div class="group catalog__group-wrap">
-			<?php foreach ($all_g as $item) { ?>
+			<?php $i = 0;
+			foreach ($all_g as $item) { ?>
 				<a href="<?= SITE_URL . $item->link ?>" class="group__item">
 					<img class="group__img-bcg" src="<?= IMG_PATH . $item->photo ?>" alt="img">
-					<img class="group__ic" src="<?= SERVER_URL ?>style/icons/group/ic_sun.svg" alt="img">
+					<img class="group__ic" src="<?= SERVER_URL ?>style/icons/group/ic_group-<?= $i ?>.svg" alt="img">
 					<span class="group__text"><?= $item->name ?></span>
 				</a>
-			<?php } ?>
+			<?php $i++;
+			} ?>
 		</div>
 	</div>
 </section>
@@ -75,8 +77,7 @@ $products = $this->load->function_in_alias('catalog', '__get_Products');
 	<div class="objects-map ">
 		<h2 class="objects-map__title section-title"><?= $this->text('Карта об’єктів', 0) ?></h2>
 		<div class="objects-map__map-wrap">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42332.94187007656!2d24.52356752390296!3d48.46019668799371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47372434d361a9a9%3A0x4f539b9d38654c20!2sYaremche%2C%20Ivano-Frankivsk%20Oblast%2C%2078500!5e0!3m2!1sen!2sua!4v1655543126811!5m2!1sen!2sua" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-			</iframe>
+			<div id="map"></div>
 		</div>
 	</div>
 </section>
@@ -104,30 +105,406 @@ $products = $this->load->function_in_alias('catalog', '__get_Products');
 </section>
 
 <section class="content-block">
-	<div class="item-wrap ">
-		<?php foreach ($products as $i => $product) {
-			if ($i < 9) { ?>
-				<div class="item-card">
-					<a href="<?= SITE_URL . $product->link ?>" class="item-card__img">
-						<img src="<?= IMG_PATH . $product->photo ?>" alt="img">
-					</a>
-					<h3 class="item-card__title">
-						<a href="<?= SITE_URL . $product->link ?>"><?= $product->name ?></a>
-						<img class="item-card__heart" src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" alt="icon">
-					</h3>
-					<span class="item-card__location">
-						<img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
-						<?= $product->list ?>
-					</span>
-					<span class="item-card__price"><?= number_format($product->price, 0, ' ', ' ')  ?> грн </span>
-				</div>
+		<div class="item-wrap ">
+			<?php
+			foreach ($products as $i => $product) {
+				if ($i < 9) { ?>
+					<div class="item-card">
+						<a href="<?= SITE_URL . $product->link ?>" class="item-card__img">
+							<img src="<?= IMG_PATH . $product->photo ?>" alt="img">
+						</a>
+						<h3 class="item-card__title">
+							<a href="<?= SITE_URL . $product->link ?>"><?= $product->name ?></a>
+							<img class="item-card__heart" src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" alt="icon">
+						</h3>
+						<span class="item-card__location">
+							<img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
+							<?= $product->list ?>
+						</span>
+						<span class="item-card__price"><?= number_format($product->price, 0, ' ', ' ')  ?> грн </span>
+					</div>
 
-		<?php }
-		} ?>
-	</div>
+			<?php }
+			}
+			?>
+		</div>
 
-	<div class="item-wrap__btn-wrap">
-		<a href="<?= SITE_URL ?>catalog" class="green-btn" type="button"> <?= $this->text('Перейти в каталог', 0) ?>
-	</a>
-	</div>
+		<div class="item-wrap__btn-wrap">
+			<a href="<?= SITE_URL ?>catalog" class="green-btn" type="button"> <?= $this->text('Перейти в каталог', 0) ?>
+			</a>
+		</div>
 </section>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwLJ94dy_JgpTb-uP0QaYfPFFJQmFs4QU"></script>
+
+<script>
+	const myLatLng = {lat: 48.43532259984072, lng: 24.52901548123906};
+
+	var locations = [
+		{
+			id: 1,
+			name: 'Локація 1',
+			position: {lat: 48.43532259984072, lng: 24.52901548123906}
+		},
+		{
+			id: 2,
+			name: 'Локація 2',
+			position: {lat: 48.33532259984072, lng: 24.42901548123906}
+		},
+		{
+			id: 3,
+			name: 'Локація 3',
+			position: {lat: 48.23532259984072, lng: 24.12901548123906}
+		}
+	]
+
+	var mapOptions = {
+		zoom: 11,
+		minZoom: 6,
+		panControl: false,
+		zoomControl: true,
+		mapTypeControl: false,
+		scaleControl: false,
+		streetViewControl: false,
+		overviewMapControl: false,
+		rotateControl: false,
+		center: myLatLng,
+		styles: [
+			{
+					"elementType": "labels.text",
+					"stylers": [
+							{
+									"visibility": "on"
+							}
+					]
+			},
+			{
+					"featureType": "landscape.natural",
+					"elementType": "geometry.fill",
+					"stylers": [
+							{
+									"color": "#f5f5f2"
+							},
+							{
+									"visibility": "on"
+							}
+					]
+			},
+			{
+					"featureType": "administrative",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "transit",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi.attraction",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "landscape.man_made",
+					"elementType": "geometry.fill",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							},
+							{
+									"visibility": "on"
+							}
+					]
+			},
+			{
+					"featureType": "poi.business",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi.medical",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi.place_of_worship",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi.school",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi.sports_complex",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road.highway",
+					"elementType": "geometry",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							},
+							{
+									"visibility": "simplified"
+							}
+					]
+			},
+			{
+					"featureType": "road.arterial",
+					"stylers": [
+							{
+									"visibility": "simplified"
+							},
+							{
+									"color": "#ffffff"
+							}
+					]
+			},
+			{
+					"featureType": "road.highway",
+					"elementType": "labels.icon",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							},
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road.highway",
+					"elementType": "labels.icon",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road.arterial",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							}
+					]
+			},
+			{
+					"featureType": "road.local",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							}
+					]
+			},
+			{
+					"featureType": "poi.park",
+					"elementType": "labels.icon",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "poi",
+					"elementType": "labels.icon",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "water",
+					"stylers": [
+							{
+									"color": "#71c8d4"
+							}
+					]
+			},
+			{
+					"featureType": "landscape",
+					"stylers": [
+							{
+									"color": "#e5e8e7"
+							}
+					]
+			},
+			{
+					"featureType": "poi.park",
+					"stylers": [
+							{
+									"color": "#8ba129"
+							}
+					]
+			},
+			{
+					"featureType": "road",
+					"stylers": [
+							{
+									"color": "#ffffff"
+							}
+					]
+			},
+			{
+					"featureType": "poi.sports_complex",
+					"elementType": "geometry",
+					"stylers": [
+							{
+									"color": "#c7c7c7"
+							},
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "water",
+					"stylers": [
+							{
+									"color": "#a0d3d3"
+							}
+					]
+			},
+			{
+					"featureType": "poi.park",
+					"stylers": [
+							{
+									"color": "#91b65d"
+							}
+					]
+			},
+			{
+					"featureType": "poi.park",
+					"stylers": [
+							{
+									"gamma": 1.51
+							}
+					]
+			},
+			{
+					"featureType": "road.local",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road.local",
+					"elementType": "geometry",
+					"stylers": [
+							{
+									"visibility": "on"
+							}
+					]
+			},
+			{
+					"featureType": "poi.government",
+					"elementType": "geometry",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "landscape",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road",
+					"elementType": "labels",
+					"stylers": [
+							{
+									"visibility": "off"
+							}
+					]
+			},
+			{
+					"featureType": "road.arterial",
+					"elementType": "geometry",
+					"stylers": [
+							{
+									"visibility": "simplified"
+							}
+					]
+			},
+			{
+					"featureType": "road.local",
+					"stylers": [
+							{
+									"visibility": "simplified"
+							}
+					]
+			},
+			{
+					"featureType": "road"
+			},
+			{
+					"featureType": "road"
+			},
+			{},
+			{
+					"featureType": "road.highway"
+			}
+		]
+	}
+	
+	function initMap() {
+		const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+		locations.forEach(function(location) {
+			var marker = new google.maps.Marker({
+				position: location.position,
+				map,
+				title: location.name,
+			}).addListener("click", () => {
+				console.log('location id#'+ location.id);
+			});
+		})
+		
+	}
+
+	initMap()
+</script>
+
+<style>
+	#map {
+		height: 100%;
+	}
+</style>
