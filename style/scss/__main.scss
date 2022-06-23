@@ -242,6 +242,12 @@ html {
 .title-with-link {
   display: flex;
   gap: 40px;
+  
+  & > img {
+    width: 80px;
+    height: 60px;
+    object-fit: contain;
+  }
 
   @media (max-width: 650px) {
     flex-direction: column;

@@ -1,16 +1,16 @@
 <html lang="uk" prefix="og: http://ogp.me/ns#">
 
 <head>
-	<title>catalog</title>
+	<title>js</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="title" content="catalog">
+	<meta name="title" content="js">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="webspirit.com.ua">
 
 	<meta property="og:locale" content="uk_UA" />
-	<meta property="og:title" content="catalog" />
+	<meta property="og:title" content="js" />
 	<meta property="og:description" content="" />
 	
 		
@@ -27,7 +27,16 @@
 <body>
 	
 
-	<header class="header content-block">
+	<div class="modal-bcg"></div>
+
+<div class="modal-wrap">
+  <form class="modal-call" action="">
+    <span class="modal-call__title">Замовити дзвінок</span>
+    <input required class="input" type="text" placeholder="Номер телефона">
+    <input class="input" type="text" placeholder="І'мя">
+    <button type="submit" class="green-btn">Замовити дзвінок</button>
+  </form>
+</div><header class="header content-block">
     <nav class="navigation">
         <a href="/">
             <img class="navigation__logo" src="http://localhost/green/style/logo.svg" alt="logo">
@@ -41,10 +50,10 @@
                 <a class="navigation__link" href="">Карта об’єктів</a>
             </li>
             <li>
-                <a class="navigation__link" href="">Про нас</a>
+                <a class="navigation__link" href="http://localhost/green/#about">Про нас</a>
             </li>
             <li>
-                <a class="navigation__link" href="">Контакти</a>
+                <a class="navigation__link" href="http://localhost/green/#contacts">Контакти</a>
             </li>
         </ul>
     </nav>
@@ -67,7 +76,7 @@
                 <img src="http://localhost/green/style/icons/ic_heart.svg" alt="favorite">
             </a>
         </div>
-        <button class="green-btn">Замовити дзвінок</button>
+        <button id="call" class="green-btn">Замовити дзвінок</button>
     </div>
 
     <div class="header__burger">
@@ -132,7 +141,7 @@
     }
 </style></main><footer class="footer">
   <div class="footer__bcg"></div>
-  <div class="footer__wrap content-block">
+  <div id="contacts" class="footer__wrap content-block">
     <div class="footer__contacts">
       <span class="section-title">Контакти</span>
       <span class="footer__under-title">Наша команда завжди на зв’язку</span>

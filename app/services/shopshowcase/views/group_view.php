@@ -1,6 +1,7 @@
+
 <section class="content-block group-title">
 	<div class="title-with-link">
-		<img src="<?= SERVER_URL ?>style/icons/group/ic_sun-black.svg" alt="icon">
+		<img src="<?= IMG_PATH . $_SESSION['alias']->section['icon']->images[0]->path ?>" alt="icon">
 		<h1 class="section-title"><?= $_SESSION['alias']->name ?></h1>
 		<span class="show-on-map">
 			<a href="">

@@ -47,7 +47,6 @@
 
 $products = $this->load->function_in_alias('catalog', '__get_Products');
 ?>
-
 <section class="catalog ">
 	<div class="content-block">
 		<div class="title-with-link catalog__title-link">

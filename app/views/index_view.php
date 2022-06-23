@@ -111,7 +111,7 @@
     </button>
     <span class="about__title">Your Green Property — <?= $this->text('Це агенство нерухомості') ?></span>
     <span class="about__text">
-      <?= $this->text('текст про компанію') ?>
+      <?= html_entity_decode($_SESSION['alias']->text);?>
     </span>
   </div>
 
