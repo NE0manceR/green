@@ -107,7 +107,7 @@ html {
     overflow: hidden;
 
     @media (max-width: 560px) {
-      height: 220px;
+      height: 230px;
     }
 
     img {
@@ -132,7 +132,16 @@ html {
 
   }
 
-  &__heart {}
+  &__heart {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    cursor: pointer;
+
+    &.dislike {
+      display: none;
+    }
+  }
 
   &__location-icon {}
 
@@ -242,8 +251,8 @@ html {
 .title-with-link {
   display: flex;
   gap: 40px;
-  
-  & > img {
+
+  &>img {
     width: 80px;
     height: 60px;
     object-fit: contain;
@@ -362,6 +371,14 @@ form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+
+  @media (max-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   .item-card {
     width: 100%;

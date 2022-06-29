@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="<?= SERVER_URL ?>style/swiper-bundle.min.css">
 <link rel="stylesheet" href="<?= SERVER_URL ?>style/slick.css">
 <style>
-  html,
-
   .swiper {
     width: 100%;
     height: 100%;
@@ -66,6 +64,8 @@
   }
 </style>
 
+<?php $products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20)) ?>
+
 <section class="main">
   <div class="main__title-wrap content-block">
     <h1 class="section-title"><?= $_SESSION['alias']->name ?></h1>
@@ -109,9 +109,10 @@
       <img src="<?= SERVER_URL ?>style/icons/ic_location-white.svg" alt="icon">
       <?= $this->text('Карта об’єктів') ?>
     </button>
-    <span class="about__title">Your Green Property — <?= $this->text('Це агенство нерухомості') ?></span>
+    <span class="about__title">Your Green Property —
+      <?= $this->text('Це агенство нерухомості') ?></span>
     <span class="about__text">
-      <?= html_entity_decode($_SESSION['alias']->text);?>
+      <?= html_entity_decode($_SESSION['alias']->text); ?>
     </span>
   </div>
 
@@ -134,41 +135,35 @@
 <section class="news content-block">
   <div class="news__title-wrap">
     <h2 class="section-title"><?= $this->text('Нові об’єкти') ?></h2>
-    <div class="news__slider-nav"></div>
+    <div class="news__slider-nav">
+
+    </div>
   </div>
   <div class="slider-container news__items-container">
-    <?php for ($i = 1; $i < 10; $i++) { ?>
+    <?php foreach ($products as  $product) { ?>
       <div class="slide">
-        <a class="item-card" href="">
-          <div class="item-card__img">
-            <img src="<?= SERVER_URL ?>style/test-imgs/items/<?= $i ?>.png" alt="img">
-          </div>
+        <div class="item-card">
+          <a href="<?= SITE_URL . $product->link ?>" class="item-card__img">
+            <img src="<?= IMG_PATH . $product->sm_photo ?>" alt="img">
+          </a>
           <h3 class="item-card__title">
-            Котедж в горах
-            <img class="item-card__heart" src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" alt="icon">
+            <?= $product->name ?>
+            <img class="item-card__heart"
+            src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" onclick="populateStorage(<?= $product->id ?>)"
+            id="like<?= $product->id ?>"
+            >
+
+            <img class="item-card__heart dislike"
+            src="<?= SERVER_URL ?>style/icons/ic_heart-green.svg" onclick="populateStorage(<?= $product->id ?>)"
+            id="dislike<?= $product->id ?>"
+            >
           </h3>
           <span class="item-card__location">
             <img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
-            Яремче, вул. Галицька 13
+            <?= $product->list ?>
           </span>
-          <span class="item-card__price">12 200 000 грн </span>
-        </a>
-      </div>
-      <div class="slide">
-        <a class="item-card" href="">
-          <div class="item-card__img">
-            <img src="<?= SERVER_URL ?>style/test-imgs/items/<?= $i ?>.png" alt="img">
-          </div>
-          <h3 class="item-card__title">
-            Котедж в горах
-            <img class="item-card__heart" src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" alt="icon">
-          </h3>
-          <span class="item-card__location">
-            <img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
-            Яремче, вул. Галицька 13
-          </span>
-          <span class="item-card__price">12 200 000 грн </span>
-        </a>
+          <span class="item-card__price"><?= number_format($product->price, 0, ' ', ' ') ?> грн</span>
+        </div>
       </div>
     <?php } ?>
   </div>
@@ -191,6 +186,7 @@
   });
 
   $('.slider-container').slick({
+    arrow: true,
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -198,9 +194,7 @@
     centerPadding: '60px',
     // autoplay: true,
     // autoplaySpeed: 4000,
-    appendArrows: document.querySelector('.news__slider-nav'),
-    nextArrow: "<button type='button' class='news__next-btn'></button>",
-    prevArrow: "<button type='button' class='news__prev-btn'></button>",
+
 
     responsive: [{
         breakpoint: 880,
@@ -216,17 +210,34 @@
           slidesToScroll: 1,
         }
       },
-      // {
-      //   breakpoint: 480,
-      //   settings: {
-      //     arrows: false,
-      //     centerMode: true,
-      //     centerPadding: '40px',
-      //     slidesToShow: 1
-      //   }
-      // }
-    ]
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 1
+        }
+      }
+    ],
+    appendArrows: document.querySelector('.news__slider-nav'),
+    nextArrow: "<button type='button' class='news__next-btn'></button>",
+    prevArrow: "<button type='button' class='news__prev-btn'></button>",
 
 
   });
+
+  function populateStorage(id) {
+    if (localStorage.getItem(id) != 'liked') {
+      localStorage.setItem(id, 'liked');
+      $('#like' + id).hide();
+      $('#dislike' + id).show();
+    } else {
+      localStorage.removeItem(id);
+      $('#like' + id).show();
+      $('#dislike' + id).hide();
+    }
+
+    console.log(localStorage);
+  }
 </script>
