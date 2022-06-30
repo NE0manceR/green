@@ -112,7 +112,7 @@ function populateStorage(id) {
   }
 
 
-  let copyArray = [git];
+  let copyArray = [...JSON.parse(localStorage.getItem('favorites'))];
 
   console.log(copyArray)
 
@@ -120,8 +120,7 @@ function populateStorage(id) {
     localStorage.removeItem('favorites')
     copyArray.push(newObj);
     console.log(copyArray)
-    localStorage.setItem('favorites', JSON.stringify(newObj));
-    console.log(localStorage);
+    localStorage.setItem('favorites', JSON.stringify(copyArray));
 
   }
 
