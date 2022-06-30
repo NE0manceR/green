@@ -96,32 +96,22 @@ if (!localStorage.hasOwnProperty("favorites")) {
 
 
 function populateStorage(id) {
-  let item_link = $(`#link-${id}`).attr('href');
-  let item_photo = $(`#img-${id}`).attr('src');
-  let item_name = $(`#name-${id}`).html();
-  let item_location = $(`#location-${id}`).html();
-  let item_price = $(`#price-${id}`).html();
-
   let newObj = {
     id: id,
-    link: item_link,
-    photo: item_photo,
-    name: item_name,
-    location: item_location,
-    price: item_price,
+    link: $(`#link-${id}`).attr('href'),
+    photo: $(`#img-${id}`).attr('src'),
+    name: $(`#name-${id}`).html(),
+    location: $(`#location-${id}`).html(),
+    price: $(`#price-${id}`).html(),
   }
 
 
   let copyArray = [...JSON.parse(localStorage.getItem('favorites'))];
 
-  console.log(copyArray)
-
-  if (copyArray.indexOf(item => item.id === newObj.id) === -1) {
+  if (copyArray.find((item) => item.id === newObj.id) === undefined) {
     localStorage.removeItem('favorites')
     copyArray.push(newObj);
-    console.log(copyArray)
     localStorage.setItem('favorites', JSON.stringify(copyArray));
-
   }
 
 
