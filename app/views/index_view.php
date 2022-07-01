@@ -165,19 +165,21 @@
         <span class="item-card__title">
           <span id="name-<?= $product->id ?>"><?= $product->name ?></span>
           <img class="item-card__heart item-card__heart-like"
-               data-status="<?= $product->id ?>"
                src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg"
                onclick="populateStorage(<?= $product->id ?>)"
-               id="like<?= $product->id ?>">
+               id="like<?= $product->id ?>"
+               data-status="<?= $product->id ?>"
+               >
 
           <img class="item-card__heart dislike"
-               data-status="<?= $product->id ?>"
                src="<?= SERVER_URL ?>style/icons/ic_heart-green.svg"
                onclick="populateStorage(<?= $product->id ?>)"
-               id="dislike<?= $product->id ?>">
+               id="dislike<?= $product->id ?>"
+               data-status="<?= $product->id ?>"
+               >
         </span>
         <span class="item-card__location">
-          <img class="item-card__location-icon"
+          <img id="location_ic-<?= $product->id ?>" class="item-card__location-icon"
                src="<?= SERVER_URL ?>style/icons/ic_location.svg"
                alt="img">
           <span id="location-<?= $product->id ?>"><?= $product->list ?></span>

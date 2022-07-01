@@ -34,25 +34,12 @@
             </ul>
         </div>
         <div class="header__favorite">
-
             <img id="favorite" src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
             <div class="favorite-list header__favorite-list">
                 <div class="favorite-list__wrap">
                     <span class="favorite-list__title">Збережені</span>
                     <div class="favorite-list__items">
-                        <a class="item-card">
-                            <div class="item-card__img">
-                                <img src="http://green.localhost/images/shopshowcase/2/sm_-10.png" alt="img">
-                            </div>
-                            <h3 class="item-card__title">
-                                Котедж в горах
-                            </h3>
-                            <span class="item-card__location">
-                                <img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
-                                Яремче, вул. Галицька 13
-                            </span>
-                            <span class="item-card__price"><?= number_format(12200000, 0, ' ', ' ') ?> грн</span>
-                        </a>
+                 
                     </div>
                     <a class="green-btn" href="<?= SERVER_URL ?>catalog">Перейти в каталог</a>
                 </div>
@@ -92,7 +79,7 @@
                     <div class="header__favorite">
                         <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
                     </div>
-                    <button class="green-btn"><?= $this->text('Замовити дзвінок', 0) ?></button>
+                    <button class="green-btn call"><?= $this->text('Замовити дзвінок', 0) ?></button>
                 </li>
             </ul>
         </div>

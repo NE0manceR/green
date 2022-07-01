@@ -73,69 +73,85 @@ function toggle_bcg() {
   modal_bcg.fadeToggle(100);
 }
 
-
-
 // localstorage
+// localStorage.clear();
 
-localStorage.clear();
-
-let test = [
-  {
-    name: 'qeqwe',
-    testwww: 'qeqwewq'
-  },
-  {
-    name: 'qeqw123e',
-    testwww: 'qeqwew123q'
-  }
-]
-
+let header_favorite_list = document.querySelector('.favorite-list__items');
+let header_favorite_arr = ''
 if (!localStorage.hasOwnProperty("favorites")) {
   localStorage.setItem('favorites', JSON.stringify([]))
 }
 
+add_favorite_to_list();
 
 function populateStorage(id) {
-  let newObj = {
+  let favorites_item = {
     id: id,
     link: $(`#link-${id}`).attr('href'),
     photo: $(`#img-${id}`).attr('src'),
     name: $(`#name-${id}`).html(),
     location: $(`#location-${id}`).html(),
     price: $(`#price-${id}`).html(),
+    locationic: $(`#location_ic-${id}`).attr('src'),
   }
 
+  let copy_favorites = [...JSON.parse(localStorage.getItem('favorites'))];
 
-  let copyArray = [...JSON.parse(localStorage.getItem('favorites'))];
-
-  if (copyArray.find((item) => item.id === newObj.id) === undefined) {
-    localStorage.removeItem('favorites')
-    copyArray.push(newObj);
-    localStorage.setItem('favorites', JSON.stringify(copyArray));
+  if (copy_favorites.find((item) => item.id === favorites_item.id) === undefined) {
+    copy_favorites.push(favorites_item);
+    localStorage.setItem('favorites', JSON.stringify(copy_favorites));
+    change_heart_status('show', id);
+    add_favorite_to_list();
+  } else {
+    let remove_item = copy_favorites.filter((item) => item.id !== favorites_item.id);
+    localStorage.setItem('favorites', JSON.stringify(remove_item));
+    change_heart_status('hide', id);
+    add_favorite_to_list();
   }
+}
 
-
-  if (localStorage.getItem(id) != 'liked') {
-    // localStorage.setItem(id, JSON.stringify(test).push());
+function change_heart_status(status, id) {
+  if (status === 'show') {
     $('#like' + id).hide();
     $('#dislike' + id).show();
   } else {
-    localStorage.removeItem(id);
     $('#like' + id).show();
     $('#dislike' + id).hide();
   }
-
-  console.log(JSON.parse(localStorage.getItem('favorites')));
-
 }
 
+//  генерує блок та додає його до Збереженого
+function add_favorite_to_list() {
 
-
-$('.item-card__heart-like').each(function (index) {
-
-  if (localStorage.hasOwnProperty($(this).attr('data-status'))) {
-    $(`.dislike[data-status~=${$(this).attr('data-status')}]`).show();
-    $(this).hide();
+  if (JSON.parse(localStorage.getItem('favorites')).length !== 0) {
+    header_favorite_list.innerHTML = "";
+    console.log(JSON.parse(localStorage.getItem('favorites')));
+    JSON.parse(localStorage.getItem('favorites')).forEach(({ locationic, link, location, name, photo, price }) => {
+      header_favorite_list.insertAdjacentHTML('beforeend', `
+      <a href="${link}" class="item-card">
+      <div class="item-card__img">
+          <img src="${photo}" alt="img">
+      </div>
+      <h3 class="item-card__title">
+          ${name}
+      </h3>
+      <span class="item-card__location">
+          <img class="item-card__location-icon" src="${locationic}" alt="img">
+          ${location}
+      </span>
+      <span class="item-card__price">${price}</span>
+      </a>
+      `);
+    });
   }
+}
 
-})
+// перевіряє чи  лайкнуте вже
+function like_heart() {
+  JSON.parse(localStorage.getItem('favorites')).forEach((item) => {
+    $(`.dislike[data-status~=${item.id}]`).show();
+    $(`.item-card__heart-like[data-status~=${item.id}]`).hide();
+  })
+}
+
+like_heart();

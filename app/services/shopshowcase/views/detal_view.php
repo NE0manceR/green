@@ -401,10 +401,63 @@
   </div>
 </section>
 
+<pre>
+<?php
+print_r($product);
+?>
+</pre>
+
 
 <script>
   // As a jQuery plugin
   $('.gallery a').simpleLightbox({
     // options here
   });
+
+
+
+  $('.info__favorite').on('click', function() {
+    add_favorite(<?= $product->id ?>);
+  });
+</script>
+
+<script>
+  let status = false;
+
+  let detal_favorites_item = {
+    id: <?= $product->id ?>,
+    link: "<?= SITE_URL . $product->link ?>",
+    photo: "<?= IMG_PATH . $product->sm_photo ?>",
+    name: "<?= $product->name ?>",
+    location: "<?= $product->list ?>",
+    price: "<?= number_format($product->price, 0, ' ', ' ')  ?> грн",
+    locationic: "<?= SERVER_URL ?> style/icons/ic_location.svg",
+  }
+
+  let item_index = JSON.parse(localStorage.getItem('favorites')).findIndex(item => item.id === <?= $product->id ?>);
+
+  if (item_index !== -1) {
+    $('.info__favorite').css('background', "green");
+    status = true;
+  }
+
+
+
+  function add_favorite(id) {
+
+    let copy_favorites = [...JSON.parse(localStorage.getItem('favorites'))];
+
+    if (copy_favorites.find((item) => item.id === detal_favorites_item.id) === undefined) {
+      copy_favorites.push(detal_favorites_item);
+      localStorage.setItem('favorites', JSON.stringify(copy_favorites));
+      $('.info__favorite').css('background', "green");
+
+    } else {
+      let remove_item = copy_favorites.filter((item) => item.id !== detal_favorites_item.id);
+      localStorage.setItem('favorites', JSON.stringify(remove_item))
+      $('.info__favorite').css('background', "rgba(250,250,250,0.6)");;
+    }
+
+    console.log(JSON.parse(localStorage.getItem('favorites')));
+  }
 </script>
