@@ -12,7 +12,7 @@
 	<meta property="og:locale" content="<?= $_SESSION['language'] ?>_UA" />
 	<meta property="og:title" content="<?= $_SESSION['alias']->title ?>" />
 	<meta property="og:description" content="<?= $_SESSION['alias']->description ?>" />
-	<?php if (!empty($_SESSION['alias']->image)) { ?>
+	<?php if (!empty($_SESSION['alias']->image)) { ?>1
 		<meta property="og:image" content="<?= IMG_PATH . $_SESSION['alias']->image ?>" />
 	<?php } ?>
 

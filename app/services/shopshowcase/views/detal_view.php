@@ -360,7 +360,8 @@
     </div>
     <button class="info__favorite">
       <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="">
-      <span><?= $this->text('Додати в обране ') ?></span>
+      <span class="info__favorite-add"><?= $this->text('Додати в обране ') ?></span>
+      <span class="info__favorite-remove"><?= $this->text('Прибрати з обраного ') ?></span>
     </button>
   </div>
 </section>
@@ -414,15 +415,15 @@ print_r($product);
     // options here
   });
 
-
-
   $('.info__favorite').on('click', function() {
     add_favorite(<?= $product->id ?>);
   });
 </script>
 
 <script>
-  let status = false;
+  let favorite_btn = $('.info__favorite');
+  let favorite_btn_add = $('.info__favorite-add');
+  let favorite_btn_remove = $('.info__favorite-remove');
 
   let detal_favorites_item = {
     id: <?= $product->id ?>,
@@ -437,11 +438,14 @@ print_r($product);
   let item_index = JSON.parse(localStorage.getItem('favorites')).findIndex(item => item.id === <?= $product->id ?>);
 
   if (item_index !== -1) {
-    $('.info__favorite').css('background', "green");
-    status = true;
+    favorite_btn.addClass('active');
+    favorite_btn_add.hide();
+    favorite_btn_remove.show();
+  } else {
+    favorite_btn_add.show();
+    favorite_btn_remove.hide();
+
   }
-
-
 
   function add_favorite(id) {
 
@@ -450,12 +454,16 @@ print_r($product);
     if (copy_favorites.find((item) => item.id === detal_favorites_item.id) === undefined) {
       copy_favorites.push(detal_favorites_item);
       localStorage.setItem('favorites', JSON.stringify(copy_favorites));
-      $('.info__favorite').css('background', "green");
+      favorite_btn.addClass('active');
+      favorite_btn_add.hide();
+      favorite_btn_remove.show();
 
     } else {
       let remove_item = copy_favorites.filter((item) => item.id !== detal_favorites_item.id);
       localStorage.setItem('favorites', JSON.stringify(remove_item))
-      $('.info__favorite').css('background', "rgba(250,250,250,0.6)");;
+      favorite_btn.removeClass('active');
+      favorite_btn_add.show();
+      favorite_btn_remove.hide();
     }
 
     console.log(JSON.parse(localStorage.getItem('favorites')));
