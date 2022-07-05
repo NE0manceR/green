@@ -12,10 +12,10 @@
                 <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href="<?= SITE_URL ?>#about"><?= $this->text('Про нас', 0) ?></a>
+                <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#about"><?= $this->text('Про нас', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href="<?= SITE_URL ?>#contacts"><?= $this->text('Контакти', 0) ?></a>
+                <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#contacts"><?= $this->text('Контакти', 0) ?></a>
             </li>
         </ul>
     </nav>
@@ -29,7 +29,7 @@
                     <a href="">Укр</a>
                 </li>
                 <li>
-                    <a href="">Ру</a>
+                    <a href="">Eng</a>
                 </li>
             </ul>
         </div>
@@ -61,19 +61,19 @@
             <ul class="mobile-menu__nav">
                 <li class="mobile-menu__language">
                     <a class="active" href="">Укр</a>
-                    <a href="">Рус</a>
+                    <a href="">Eng</a>
                 </li>
                 <li>
-                    <a class="navigation__link" href=""><?= $this->text('Каталог', 0) ?></a>
+                    <a class="navigation__link" href="<?= SITE_URL ?>catalog"><?= $this->text('Каталог', 0) ?></a>
                 </li>
                 <li>
                     <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href=""><?= $this->text('Про нас', 0) ?></a>
+                    <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#about"><?= $this->text('Про нас', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href=""><?= $this->text('Контакти', 0) ?></a>
+                    <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#contacts"><?= $this->text('Контакти', 0) ?></a>
                 </li>
                 <li class=" mobile-menu__language mobile-menu__btn-wrap">
                     <div class="header__favorite">

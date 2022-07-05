@@ -378,7 +378,7 @@
       <div class="description__map-wrap">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d84672.72513572637!2d24.50620474314756!3d48.45609475105361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4737243a84944efd%3A0x1c5465f02903eff2!2sYaremche%2C%20Ivano-Frankivsk%20Oblast!5e0!3m2!1sen!2sua!4v1655825800516!5m2!1sen!2sua" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-      <button class="green-btn"><?= $this->text('Домовитись про огляд') ?></button>
+      <button class="green-btn call"><?= $this->text('Домовитись про огляд') ?></button>
     </div>
   </div>
 </section>
@@ -401,13 +401,6 @@
     </div>
   </div>
 </section>
-
-<pre>
-<?php
-print_r($product);
-?>
-</pre>
-
 
 <script>
   // As a jQuery plugin

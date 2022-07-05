@@ -9,6 +9,10 @@ $('.header__burger, .mobile-menu').on('click', function (event) {
   }
 })
 
+$('.mobile-menu__nav .navigation__link').on('click', function () {
+  toggle_menu();
+})
+
 function toggle_menu() {
   if (body.hasClass('active')) {
     mobile_menu_wrap.addClass('hide');

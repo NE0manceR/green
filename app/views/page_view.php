@@ -5,19 +5,17 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="title" content="<?= $_SESSION['alias']->title ?>">
-	<meta name="description" content="<?= $_SESSION['alias']->description ?>">
+	<!-- <meta name="description" content="<?= $_SESSION['alias']->description ?>"> -->
 	<meta name="keywords" content="<?= $_SESSION['alias']->keywords ?>">
 	<meta name="author" content="webspirit.com.ua">
 
 	<meta property="og:locale" content="<?= $_SESSION['language'] ?>_UA" />
 	<meta property="og:title" content="<?= $_SESSION['alias']->title ?>" />
 	<meta property="og:description" content="<?= $_SESSION['alias']->description ?>" />
-	<?php if (!empty($_SESSION['alias']->image)) { ?>1
+	<?php if (!empty($_SESSION['alias']->image)) { ?>
 		<meta property="og:image" content="<?= IMG_PATH . $_SESSION['alias']->image ?>" />
 	<?php } ?>
 
-	<?= html_entity_decode($_SESSION['option']->global_MetaTags, ENT_QUOTES) ?>
-	<?= html_entity_decode($_SESSION['alias']->meta, ENT_QUOTES) ?>
 
 	<link rel="shortcut icon" href="<?= SERVER_URL ?>style/admin/images/whitelion-black.png">
 

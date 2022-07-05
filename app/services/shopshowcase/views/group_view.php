@@ -1,4 +1,3 @@
-
 <section class="content-block group-title">
 	<div class="title-with-link">
 		<img src="<?= IMG_PATH . $_SESSION['alias']->section['icon']->images[0]->path ?>" alt="icon">
@@ -37,32 +36,20 @@
 <section class="content-block">
 	<div class="item-wrap ">
 		<?php foreach ($products as $product) { ?>
-
-			<div class="item-card">
-				<a href="<?= SITE_URL . $product->link ?>" class="item-card__img">
-					<img src="<?= IMG_PATH . $product->photo ?>" alt="img">
-				</a>
-				<h3 class="item-card__title">
-					<a href="<?= SITE_URL . $product->link ?>"><?= $product->name ?></a>
-					<img class="item-card__heart" src="<?= SERVER_URL ?>style/icons/ic_heart-black.svg" alt="icon">
-				</h3>
-				<span class="item-card__location">
-					<img class="item-card__location-icon" src="<?= SERVER_URL ?>style/icons/ic_location.svg" alt="img">
-					<?= $product->list ?>
-				</span>
-				<span class="item-card__price"><?= number_format($product->price, 0, ' ', ' ')  ?> грн </span>
-			</div>
-
+			<?php include $_SERVER['DOCUMENT_ROOT'] . "/app/views/@commons/item-card.php" ?>
 		<?php } ?>
 	</div>
 
-	<div class="item-wrap__btn-wrap">
-		<button class="green-btn" type="button"><?= $this->text('Перейти в каталог', 0) ?></button>
+	<div class="item-wrap__btn-wrap pagination-wrap">
+		<?php
+		$this->load->library('paginator');
+		echo $this->paginator->get();
+		?>
 	</div>
 
-	<?php $this->load->library('paginator');
- ?>
+
 </section>
+
 
 <section class="content-block">
 	<div class="objects-map ">

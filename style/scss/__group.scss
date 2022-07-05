@@ -6,3 +6,34 @@
 .group_position {
   padding-bottom: 100px;
 }
+
+.pagination {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+}
+
+main .pagination-wrap {
+  display: flex;
+  justify-content: flex-end;
+  width: auto;
+
+  li a,
+  li span {
+    display: block;
+    padding: 5px 10px;
+    border: 1px solid $main-green-color;
+    color: $main-green-color;
+    font-weight: 900;
+  }
+
+  li.previous-off,
+  li.next-off {
+    display: none;
+  }
+
+  li.active span {
+    background-color: $main-green-color;
+    color: white;
+  }
+}
