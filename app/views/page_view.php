@@ -23,7 +23,7 @@
 	<!-- <link href="<?= SERVER_URL ?>assets/font-awesome-5.15.1/css/all.min.css" rel="stylesheet" /> -->
 	<!-- <link href="<?= SERVER_URL ?>style/ws__main.css" rel="stylesheet" /> -->
 	<link href="<?= SERVER_URL ?>style/styles.min.css?v1.1" rel="stylesheet" />
-	<script type="text/javascript" src="<?= SERVER_URL ?>assets/jquery/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="<?= SERVER_URL ?>js/jquery-3.6.0.min.js"></script>
 
 </head>
 

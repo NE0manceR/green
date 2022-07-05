@@ -159,3 +159,19 @@ function like_heart() {
 }
 
 like_heart();
+
+// =============  filter btn  ==========
+
+let map_btn = $('.map__group-btn');
+
+map_btn.mousedown(function () {
+  if ($(this).hasClass('active')) {
+    $(this).removeClass('active');
+  } else {
+    map_btn.removeClass('active');
+    $(this).addClass('active');
+  }
+})
+
+
+

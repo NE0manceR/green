@@ -9,7 +9,7 @@
                 <a class="navigation__link" href="<?= SERVER_URL ?>catalog"><?= $this->text('Каталог', 0) ?></a>
             </li>
             <li>
-                <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
+                <a class="navigation__link" href="<?= SITE_URL ?>object_map"><?= $this->text('Карта об’єктів', 0) ?></a>
             </li>
             <li>
                 <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#about"><?= $this->text('Про нас', 0) ?></a>
@@ -67,7 +67,7 @@
                     <a class="navigation__link" href="<?= SITE_URL ?>catalog"><?= $this->text('Каталог', 0) ?></a>
                 </li>
                 <li>
-                    <a class="navigation__link" href=""><?= $this->text('Карта об’єктів', 0) ?></a>
+                    <a class="navigation__link" href="<?= SITE_URL ?>object_map"><?= $this->text('Карта об’єктів', 0) ?></a>
                 </li>
                 <li>
                     <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#about"><?= $this->text('Про нас', 0) ?></a>

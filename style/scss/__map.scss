@@ -1,0 +1,100 @@
+.map {
+  position: relative;
+  height: calc(100vh - 112px);
+
+
+  &__wrap {
+    height: 100%;
+  }
+
+  &__filter-wrap {
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 90%;
+    width: 450px;
+    padding: 56px 56px 56px 15px;
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+
+  &__filter {
+    height: 100%;
+    padding-left: 32px;
+    overflow-y: scroll;
+    direction: rtl;
+    color: #0A2014;
+
+    &::-webkit-scrollbar {
+      background-color: #D9D9D9;
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #4C4F4D;
+      border-radius: 20px;
+    }
+
+    .test {
+      height: 3000px;
+      width: 200px;
+      background-color: red;
+    }
+  }
+
+  &__title {
+    display: block;
+    font-size: 32px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  &__group-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+  }
+
+  &__group-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    border: 1px solid #C1C1C1;
+    border-radius: 25px;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .group-input {
+      display: none;
+    }
+
+    &.active {
+      border: 1px solid $main-green-color;
+
+      .map__group-text {
+        color: $main-green-color;
+      }
+    }
+  }
+
+  &__group-icn {
+    width: 32px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  &__group-text {
+    font-size: 20px;
+    color: #0A2014;
+    font-weight: 300;
+  }
+
+
+}
+
+// ===========
