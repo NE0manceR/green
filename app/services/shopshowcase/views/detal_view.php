@@ -432,12 +432,16 @@
 
   if (item_index !== -1) {
     favorite_btn.addClass('active');
-    favorite_btn_add.hide();
-    favorite_btn_remove.show();
-  } else {
-    favorite_btn_add.show();
-    favorite_btn_remove.hide();
+    if (window.innerWidth > 745) {
+      favorite_btn_add.hide();
+      favorite_btn_remove.show();
+    }
 
+  } else {
+    if (window.innerWidth > 745) {
+      favorite_btn_add.show();
+      favorite_btn_remove.hide();
+    }
   }
 
   function add_favorite(id) {
@@ -448,15 +452,20 @@
       copy_favorites.push(detal_favorites_item);
       localStorage.setItem('favorites', JSON.stringify(copy_favorites));
       favorite_btn.addClass('active');
-      favorite_btn_add.hide();
-      favorite_btn_remove.show();
+      if (window.innerWidth > 745) {
+        favorite_btn_add.hide();
+        favorite_btn_remove.show();
+      }
+
 
     } else {
       let remove_item = copy_favorites.filter((item) => item.id !== detal_favorites_item.id);
       localStorage.setItem('favorites', JSON.stringify(remove_item))
       favorite_btn.removeClass('active');
-      favorite_btn_add.show();
-      favorite_btn_remove.hide();
+      if (window.innerWidth > 745) {
+        favorite_btn_add.show();
+        favorite_btn_remove.hide();
+      }
     }
 
     console.log(JSON.parse(localStorage.getItem('favorites')));

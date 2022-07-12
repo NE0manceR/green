@@ -174,4 +174,8 @@ map_btn.mousedown(function () {
 })
 
 
+// ================= map filter checkbox============
 
+$('.map__input-radio ').on('change', function () {
+  $(this).toggleClass('active');
+})  

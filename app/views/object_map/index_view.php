@@ -1,8 +1,7 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" type="text/css" media="all" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-
-<script src="./price_range_script.js" type="text/javascript"></script>
+<link rel="stylesheet" href="<?= SERVER_URL ?>style/jquery-ui.css" type="text/css" media="all" />
+<link rel="stylesheet" href="<?= SERVER_URL ?>style/select2.min.css" type="text/css" media="all" />
+<script src="<?= SERVER_URL ?>js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="<?= SERVER_URL ?>js/select2.min.js" type="text/javascript"></script>
 
 <style>
   .price-range-block {
@@ -104,6 +103,18 @@
   .ui-slider-horizontal .ui-slider-handle:focus {
     background-color: #c5c5c5;
   }
+
+  .selection .select2-selection--single {
+    padding: 18px 24px;
+    height: auto;
+    border: 1px solid #C1C1C1;
+    border-radius: 30px;
+  }
+
+  .map__filter .selection .select2-selection--single .select2-selection__arrow {
+    top: 20px;
+    right: 16px;
+  }
 </style>
 
 
@@ -143,8 +154,56 @@
           <input type="number" min=0 max="10000" oninput="validity.valid||(value='10000');" id="max_price" class=" map__range-input" />
         </div>
       </div>
-    </div>
 
+      <span class="map__title">Розташування</span>
+      <div class="map__select-wrap">
+        <select style="width: 100%;" class="js-example-basic-single" name="state">
+          <option value="WY1">Wyoming</option>
+          <option value="AL">Alabama</option>
+          <option value="AL">Alabama</option>
+          <option value="WY2">Wyoming</option>
+          <option value="WY3">Wyoming</option>
+          <option value="W4">Wyoming</option>
+          <option value="W5Y">Wyoming</option>
+        </select>
+      </div>
+      <span class="map__title">Розміри будинків</span>
+      <div class="map__input-wrap-radio">
+        <label class="map__input-radio" for="50">
+          <span>50-100м2</span>
+          <input id="50" type="checkbox" name="testName1">
+        </label>
+        <label class="map__input-radio" for="55">
+          <span>110-200 м2</span>
+          <input id="55" type="checkbox" name="testName1">
+        </label>
+        <label class="map__input-radio" for="552">
+          <span>210-500 м2</span>
+          <input id="552" type="checkbox" name="testName1">
+        </label>
+      </div>
+
+      <span class="map__title">Розміри ділянок</span>
+      <div class="map__input-wrap-radio">
+        <label class="map__input-radio" for="650">
+          <span>До 15 соток</span>
+          <input id="650" type="checkbox" name="TestName2">
+        </label>
+        <label class="map__input-radio" for="655">
+          <span>До 50 соток</span>
+          <input id="655" type="checkbox" name="TestName2">
+        </label>
+        <label class="map__input-radio" for="16552">
+          <span>Більше 1 га</span>
+          <input id="16552" type="checkbox" name="TestName2">
+        </label>
+        <label class="map__input-radio" for="6552">
+          <span>До 1 га</span>
+          <input id="6552" type="checkbox" name="TestName2">
+        </label>
+      </div>
+
+    </div>
     </div>
 
   </form>
@@ -537,6 +596,13 @@
       $("#min_price").val($("#slider-range").slider("values", 0));
       $("#max_price").val($("#slider-range").slider("values", 1));
 
+    });
+
+    $(document).ready(function() {
+      $('.js-example-basic-single').select2({
+        placeholder: "Локація",
+        minimumResultsForSearch: Infinity
+      });
     });
   });
 
