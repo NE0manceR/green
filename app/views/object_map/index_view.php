@@ -116,7 +116,7 @@
     right: 16px;
   }
 </style>
-
+<?php $products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20)) ?>
 
 <section class="map">
   <div class="map__wrap" id="map"></div>
@@ -158,13 +158,15 @@
       <span class="map__title">Розташування</span>
       <div class="map__select-wrap">
         <select style="width: 100%;" class="js-example-basic-single" name="state">
-          <option value="WY1">Wyoming</option>
-          <option value="AL">Alabama</option>
-          <option value="AL">Alabama</option>
-          <option value="WY2">Wyoming</option>
-          <option value="WY3">Wyoming</option>
-          <option value="W4">Wyoming</option>
-          <option value="W5Y">Wyoming</option>
+          <option value="WY1">Локція1</option>
+          <option value="AL">Локція2</option>
+          <option value="AL">Локція2
+            і
+          </option>
+          <option value="WY2">Локція</option>
+          <option value="WY3">Локція</option>
+          <option value="W4">Локція</option>
+          <option value="W5Y">Локція</option>
         </select>
       </div>
       <span class="map__title">Розміри будинків</span>
@@ -210,39 +212,32 @@
 </section>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwLJ94dy_JgpTb-uP0QaYfPFFJQmFs4QU">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwLJ94dy_JgpTb-uP0QaYfPFFJQmFs4QU&v=3">
 </script>
+
 <script>
+  const products = <?= json_encode($products) ?>;
+  const with_coord = [];
+  const server_url = <?= json_encode(SERVER_URL) ?>
+
+  products.forEach((item) => {
+    if (item.hasOwnProperty('koordynaty')) {
+      with_coord.push({
+        id: item.id,
+        name: item.name,
+        link: server_url + item.link,
+        position: {
+          lat: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[0] : 0,
+          lng: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[1] : 0
+        }
+      })
+    }
+  })
+
   const myLatLng = {
     lat: 48.43532259984072,
     lng: 24.52901548123906
   };
-
-  var locations = [{
-      id: 1,
-      name: 'Локація 1',
-      position: {
-        lat: 48.43532259984072,
-        lng: 24.52901548123906
-      }
-    },
-    {
-      id: 2,
-      name: 'Локація 2',
-      position: {
-        lat: 48.33532259984072,
-        lng: 24.42901548123906
-      }
-    },
-    {
-      id: 3,
-      name: 'Локація 3',
-      position: {
-        lat: 48.23532259984072,
-        lng: 24.12901548123906
-      }
-    }
-  ]
 
   var mapOptions = {
     zoom: 11,
@@ -511,21 +506,49 @@
   function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    locations.forEach(function(location) {
-      var marker = new google.maps.Marker({
-        position: location.position,
-        map,
-        title: location.name,
-      }).addListener("click", () => {
-        console.log('location id#' + location.id);
+    const contentString =
+      '<a href="http://green.localhost/catalog/dm00116-diljanka-2" class="item-card">' +
+      '<div class="item-card__img">' +
+      '<img src="http://green.localhost/images/shopshowcase/2/sm_-10.png" alt="img">' +
+      '</div>' +
+      ' <h3 class="item-card__title">' +
+      '   Ділянка 2' +
+      '   </h3>' +
+      ' <span class="item-card__location">' +
+      '<img class="item-card__location-icon" src="http://green.localhost/style/icons/ic_location.svg" alt="img">' +
+      'Яремче, вул. Галицька 13' +
+      '</span>' +
+      '<span class="item-card__price">567 897 000 грн</span>' +
+      '</a>'
+
+    with_coord.forEach(function(item) {
+
+      let infowindow = new google.maps.InfoWindow({
+        content: contentString,
       });
+
+      let marker = new google.maps.Marker({
+        position: item.position,
+        map,
+        title: item.name,
+      });
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+          shouldFocus: false,
+        });
+      });
+
+      // marker.addListener("mouseout", () => {
+      //   infowindow.open();
+      // });
     })
 
   }
 
   initMap()
 </script>
-
 
 <script>
   $(document).ready(function() {
@@ -605,23 +628,4 @@
       });
     });
   });
-
-
-
-
-  // $("#slider-range").slider({
-  //   range: true,
-  //   orientation: "horizontal",
-  //   min: 0,
-  //   max: 200000,
-  //   values: [0, 200000],
-  //   step: 500,
-  //   slide: function(event, ui) {
-  //     if (ui.values[0] == ui.values[1]) {
-  //       return false;
-  //     }
-  //     $("#min_price").val(ui.values[0]);
-  //     $("#max_price").val(ui.values[1]);
-  //   }
-  // });
 </script>
