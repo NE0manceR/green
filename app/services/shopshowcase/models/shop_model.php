@@ -1619,7 +1619,7 @@ class shop_model
 			elseif ($group->id > 0)
 				return false;
 		}
-
+		
 		if ($filter && ($group->id > 0 && !empty($products) || $group->id == 0) || !$filter) {
 			$options = $where = [];
 			if (empty($this->allOptions))

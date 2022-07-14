@@ -334,8 +334,8 @@
                         'assets/lightGallery/modules/lg-thumbnail.min.js',
                         'js/'.$_SESSION['alias']->alias.'/product.js']); ?>
 */ ?>
-<?php $item_bcg = IMG_PATH .  $_SESSION['alias']->images[0]->org_path ?>
 
+<?php $item_bcg = IMG_PATH .  $_SESSION['alias']->images[0]->org_path ?>
 <section class="info" style='background: url("<?= $item_bcg ?>") no-repeat; background-size: cover;'>
   <div class="info__filter"></div>
   <div class="info__wrap content-block">
@@ -354,8 +354,10 @@
       <div class="info__address">
 
         <?php foreach ($product->options as $item) { ?>
-          <span><?= $item->value ?></span>
-        <?php } ?>
+          <?php if ($item->name == 'Площа' || $item->name == 'Господарство') { ?>
+            <span><?= is_object($item->value) ? "Господарство - " . $item->value->name : "Плоша - " . $item->value ?></span>
+        <?php }
+        } ?>
       </div>
     </div>
     <button class="info__favorite">
@@ -365,7 +367,6 @@
     </button>
   </div>
 </section>
-
 <section class="description content-block">
 
   <div class="description__wrap">

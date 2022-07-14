@@ -259,4 +259,25 @@ function start_route($request)
 	$route = new Router($request);
 }
 
+function mp(...$parameters)
+{
+    $trace_ = debug_backtrace();
+    $trace = $trace_[0];
+    $trace["file"] = str_replace($_SERVER["DOCUMENT_ROOT"], "", $trace["file"]);
+
+    echo '<br><pre style="background-color: #fff; z-index: 99999; display: block; clear: both;">';
+    echo $trace["file"].':'.$trace["line"].'<br />';
+
+    foreach ($parameters as $i => $ar_) {
+        if ($i > 0) {
+            echo '<br />';
+        }
+
+        echo ($i + 1).': ';
+        print_r($ar_);
+    }
+
+    echo "<br />---end</pre><br />";
+}
+
 ?>

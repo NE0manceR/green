@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="<?= SERVER_URL ?>style/select2.min.css" type="text/css" media="all" />
 <script src="<?= SERVER_URL ?>js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?= SERVER_URL ?>js/select2.min.js" type="text/javascript"></script>
+<script src="<?= SERVER_URL ?>js/sweetalert2@11.js" type="text/javascript"></script>
 
 <style>
   .price-range-block {
@@ -115,8 +116,61 @@
     top: 20px;
     right: 16px;
   }
+
+  .swal2-styled.swal2-confirm {
+    background-color: #036A0B;
+    border-radius: 25px;
+    padding: 16px 22px;
+    min-width: 100px;
+  }
 </style>
-<?php $products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20)) ?>
+<?php
+$products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20));
+
+$_get = $_GET;
+$_GET = [];
+$productTmp = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20));
+$_GET = $_get;
+
+
+
+$productsIdInGroup = [];
+foreach ($productTmp as $p) {
+  $productsIdInGroup[] = $p->id;
+}
+$filter = $this->load->function_in_alias('catalog', '__get_OptionsToGroup', compact('productsIdInGroup'));
+?>
+
+<pre>
+<?php
+?>
+</pre>
+
+<?php
+function category_icon($name)
+{
+  switch ($name) {
+    case 'Будинки та котеджі':
+      return 'style/icons/group/ic_cottages.svg.svg';
+
+    case 'Земельні  ділянки':
+      return 'style/icons/group/ic_sun-black.svg';
+      break;
+    case 'Комерція':
+      return 'style/icons/group/ic_commerce.svg.svg';
+      break;
+
+    default:
+      # code...
+      break;
+  }
+}
+?>
+
+<script>
+  console.log(<?= json_encode($filter) ?>);
+  console.log(<?= json_encode($_get) ?>);
+</script>
 
 <section class="map">
   <div class="map__wrap" id="map"></div>
@@ -124,23 +178,27 @@
     <div class="map__filter">
       <span class="map__title">Категорія</span>
       <div class="map__group-wrap">
-        <label class="map__group-btn" for="test1">
-          <span class="map__group-text">Земельні ділянки</span>
-          <img class="map__group-icn" src="<?= SITE_URL ?>style/icons/group/ic_sun-black.svg.svg" alt="icons">
-          <input class="group-input" id="test1" type="radio" name="group">
-        </label>
 
-        <label class="map__group-btn" for="test2">
-          <span class="map__group-text">Будинки та котеджі</span>
-          <img class="map__group-icn" src="<?= SITE_URL ?>style/icons/group/ic_cottages.svg.svg" alt="icons">
-          <input class="group-input" id="test2" type="radio" name="group">
-        </label>
+        <?php if ($filter) {
+          foreach ($filter as $item) {
+            if ($item->name == "Тип об'єкту") {
+              foreach ($item->values as $value) {
+                $status = '';
+                if (isset($_GET[$item->alias]) && is_array($_GET[$item->alias]) && in_array($value->id, $_GET[$item->alias])) {
+                  $status = 'checked';
+                }
+        ?>
 
-        <label class="map__group-btn" for="test3">
-          <span class="map__group-text">Комерція</span>
-          <img class="map__group-icn" src="<?= SITE_URL ?>style/icons/group/ic_commerce.svg.svg" alt="icons">
-          <input class="group-input" id="test3" type="radio" name="group">
-        </label>
+                <label class="map__group-btn <?= $status == "checked" ? 'active' : '' ?>" for="<?= $value->name . $value->id ?>">
+                  <span class="map__group-text"><?= $value->name ?></span>
+                  <img class="map__group-icn" src="<?= SITE_URL . category_icon($value->name) ?>" alt="icons">
+                  <input class="group-input" id="<?= $value->name . $value->id ?>" type="checkbox" name="<?= $item->alias ?>[]" value="<?= $value->id ?>" <?= $status ?>>
+                </label>
+        <?php }
+            }
+          }
+        } ?>
+
       </div>
       <span class="map__title">Ціна</span>
       <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
@@ -155,20 +213,28 @@
         </div>
       </div>
 
-      <span class="map__title">Розташування</span>
-      <div class="map__select-wrap">
-        <select style="width: 100%;" class="js-example-basic-single" name="state">
-          <option value="WY1">Локція1</option>
-          <option value="AL">Локція2</option>
-          <option value="AL">Локція2
-            і
-          </option>
-          <option value="WY2">Локція</option>
-          <option value="WY3">Локція</option>
-          <option value="W4">Локція</option>
-          <option value="W5Y">Локція</option>
-        </select>
-      </div>
+      <?php if ($filter) {
+        foreach ($filter as $item) { ?>
+          <?php if ($item->name == "Господарство") { ?>
+            <span class="map__title">Розташування</span>
+            <div class="map__select-wrap">
+              <select style="width: 100%;" class="js-example-basic-single" name="<?= $item->alias ?>[]" onchange="this.form.submit()">
+                <?php foreach ($item->values as $value) {
+                  $status = false;
+                  if (isset($_GET[$item->alias]) && is_array($_GET[$item->alias]) && in_array($value->id, $_GET[$item->alias])) {
+                    $status = true;
+                  }
+                ?>
+                  <option value="<?= $value->id ?>" <?= $status ? 'selected="selected"' : '' ?>>
+                    <?= $value->name ?>
+                  </option>
+                <?php } ?>
+              </select>
+            </div>
+      <?php
+          }
+        }
+      } ?>
       <span class="map__title">Розміри будинків</span>
       <div class="map__input-wrap-radio">
         <label class="map__input-radio" for="50">
@@ -218,21 +284,33 @@
 <script>
   const products = <?= json_encode($products) ?>;
   const with_coord = [];
-  const server_url = <?= json_encode(SERVER_URL) ?>
+  const server_url = <?= json_encode(SERVER_URL) ?>;
+  const img_path = <?= json_encode(IMG_PATH) ?>;
+  const site_url = <?= json_encode(SITE_URL) ?>;
 
-  products.forEach((item) => {
-    if (item.hasOwnProperty('koordynaty')) {
-      with_coord.push({
-        id: item.id,
-        name: item.name,
-        link: server_url + item.link,
-        position: {
-          lat: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[0] : 0,
-          lng: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[1] : 0
-        }
-      })
-    }
-  })
+  if (products !== false) {
+    products.forEach((item) => {
+      if (item.hasOwnProperty('koordynaty')) {
+        with_coord.push({
+          id: item.id,
+          name: item.name,
+          link: site_url + item.link,
+          price: item.price,
+          address: item.list,
+          photo: img_path + item.sm_photo,
+          position: {
+            lat: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[0] : 0,
+            lng: item.hasOwnProperty('koordynaty') ? +item.koordynaty.split(", ")[1] : 0
+          }
+        })
+      }
+    })
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Така комбінація не знайдена'
+    })
+  }
 
   const myLatLng = {
     lat: 48.43532259984072,
@@ -506,31 +584,41 @@
   function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    const contentString =
-      '<a href="http://green.localhost/catalog/dm00116-diljanka-2" class="item-card">' +
-      '<div class="item-card__img">' +
-      '<img src="http://green.localhost/images/shopshowcase/2/sm_-10.png" alt="img">' +
-      '</div>' +
-      ' <h3 class="item-card__title">' +
-      '   Ділянка 2' +
-      '   </h3>' +
-      ' <span class="item-card__location">' +
-      '<img class="item-card__location-icon" src="http://green.localhost/style/icons/ic_location.svg" alt="img">' +
-      'Яремче, вул. Галицька 13' +
-      '</span>' +
-      '<span class="item-card__price">567 897 000 грн</span>' +
-      '</a>'
 
-    with_coord.forEach(function(item) {
+    with_coord.forEach(function({
+      id,
+      link,
+      name,
+      price,
+      photo,
+      address,
+      position
+    }) {
+
+      let contentString =
+        `<a href="${link}" class="item-card">` +
+        '<div class="item-card__img">' +
+        `<img src="${photo}" alt="img">` +
+        '</div>' +
+        ' <h3 class="item-card__title">' +
+        `${name}` +
+        '</h3>' +
+        ' <span class="item-card__location">' +
+        '<img class="item-card__location-icon" src="http://green.localhost/style/icons/ic_location.svg" alt="img">' +
+        `${address}` +
+        '</span>' +
+        `<span class="item-card__price">${price} грн</span>` +
+        '</a>'
+
 
       let infowindow = new google.maps.InfoWindow({
         content: contentString,
       });
 
       let marker = new google.maps.Marker({
-        position: item.position,
+        position: position,
         map,
-        title: item.name,
+        title: name,
       });
       marker.addListener("click", () => {
         infowindow.open({

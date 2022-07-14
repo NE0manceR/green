@@ -1005,9 +1005,16 @@ class shopshowcase extends Controller {
 
 	public function __get_OptionsToGroup($group_id)
 	{
-		if(!is_numeric($group_id))
-			$group_id = 0;
 		$this->load->smodel('shop_model');
+		if(is_array($group_id)) {
+			extract($group_id);
+			if(isset($productsIdInGroup)) {
+				$this->shop_model->productsIdInGroup = $productsIdInGroup;
+			}
+		}
+		if(!is_numeric($group_id)) {
+			$group_id = 0;
+		}
 		return $this->shop_model->getOptionsToGroup($group_id);
 	}
 

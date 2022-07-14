@@ -129,7 +129,6 @@ function add_favorite_to_list() {
 
   if (JSON.parse(localStorage.getItem('favorites')).length !== 0) {
     header_favorite_list.innerHTML = "";
-    console.log(JSON.parse(localStorage.getItem('favorites')));
     JSON.parse(localStorage.getItem('favorites')).forEach(({ locationic, link, location, name, photo, price }) => {
       header_favorite_list.insertAdjacentHTML('beforeend', `
       <a href="${link}" class="item-card">
@@ -178,4 +177,8 @@ map_btn.mousedown(function () {
 
 $('.map__input-radio ').on('change', function () {
   $(this).toggleClass('active');
-})  
+})
+
+$('.map__filter-wrap input, select.select2-hidden-accessible').change(function () {
+  $(this).closest('form').submit();
+})
