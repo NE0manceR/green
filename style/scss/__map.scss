@@ -74,7 +74,7 @@
     &.active {
       border: 1px solid $main-green-color;
 
-      .map__group-text {
+      &.map__group-text {
         color: $main-green-color;
       }
     }
@@ -159,8 +159,11 @@
     user-select: none;
 
     &.active {
-      border-color: #036A0B;
-      color: #036A0B;
+      border: 1px solid $main-green-color;
+
+      .map__group-text {
+        color: $main-green-color;
+      }
     }
 
     input {

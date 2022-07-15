@@ -76,9 +76,6 @@
                     <a class="navigation__link" href="<?= SITE_URL . $_SESSION['alias']->link ?>#contacts"><?= $this->text('Контакти', 0) ?></a>
                 </li>
                 <li class=" mobile-menu__language mobile-menu__btn-wrap">
-                    <div class="header__favorite">
-                        <img src="<?= SERVER_URL ?>style/icons/ic_heart.svg" alt="favorite">
-                    </div>
                     <button class="green-btn call"><?= $this->text('Замовити дзвінок', 0) ?></button>
                 </li>
             </ul>

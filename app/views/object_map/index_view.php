@@ -168,7 +168,6 @@ function category_icon($name)
 ?>
 
 <script>
-  console.log(<?= json_encode($filter) ?>);
   console.log(<?= json_encode($_get) ?>);
 </script>
 
@@ -188,7 +187,6 @@ function category_icon($name)
                   $status = 'checked';
                 }
         ?>
-
                 <label class="map__group-btn <?= $status == "checked" ? 'active' : '' ?>" for="<?= $value->name . $value->id ?>">
                   <span class="map__group-text"><?= $value->name ?></span>
                   <img class="map__group-icn" src="<?= SITE_URL . category_icon($value->name) ?>" alt="icons">
@@ -225,33 +223,33 @@ function category_icon($name)
                     $status = true;
                   }
                 ?>
-                  <option value="<?= $value->id ?>" <?= $status ? 'selected="selected"' : '' ?>>
-                    <?= $value->name ?>
+                  <option value="<?= $value->id ?>" <?= $status || !$status && trim($value->name) == 'Оберіть господарство' ? 'selected="selected"' : '' ?>>
+                    <?= trim($value->name) == 'Оберіть господарство' ? "Усі господарства" : $value->name ?>
                   </option>
                 <?php } ?>
               </select>
             </div>
-      <?php
-          }
-        }
-      } ?>
-      <span class="map__title">Розміри будинків</span>
-      <div class="map__input-wrap-radio">
-        <label class="map__input-radio" for="50">
-          <span>50-100м2</span>
-          <input id="50" type="checkbox" name="testName1">
-        </label>
-        <label class="map__input-radio" for="55">
-          <span>110-200 м2</span>
-          <input id="55" type="checkbox" name="testName1">
-        </label>
-        <label class="map__input-radio" for="552">
-          <span>210-500 м2</span>
-          <input id="552" type="checkbox" name="testName1">
-        </label>
-      </div>
+          <?php }  ?>
 
-      <span class="map__title">Розміри ділянок</span>
+          <?php if ($item->name == "Розмір будинку") { ?>
+            <span class="map__title">Розмір будинку</span>
+            <div class="map__input-wrap-radio">
+              <?php foreach ($item->values as $value) {
+                $status = '';
+                if (isset($_GET[$item->alias]) && is_array($_GET[$item->alias]) && in_array($value->id, $_GET[$item->alias])) {
+                  $status = 'checked';
+                }
+              ?>
+                <label class="map__input-radio <?= $status == "checked" ? 'active' : '' ?>" for="<?= $value->name . $value->id ?>">
+                  <span class="map__group-text"><?= $value->name ?></span>
+                  <input id="<?= $value->name . $value->id ?>" type="checkbox" name="<?= $item->alias ?>[]" value="<?= $value->id ?>" <?= $status ?>>
+                </label>
+              <?php } ?>
+            </div>
+          <?php }  ?>
+        <?php }  ?>
+      <?php } ?>
+      <!-- <span class="map__title">Розмір будинків</span>
       <div class="map__input-wrap-radio">
         <label class="map__input-radio" for="650">
           <span>До 15 соток</span>
@@ -269,11 +267,10 @@ function category_icon($name)
           <span>До 1 га</span>
           <input id="6552" type="checkbox" name="TestName2">
         </label>
-      </div>
-
+      </div> -->
     </div>
     </div>
-
+    </div>
   </form>
 </section>
 
