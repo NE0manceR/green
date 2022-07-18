@@ -7,7 +7,7 @@
   }
 
   .swiper-slide {
-    text-align: center;
+    text-align: center
     font-size: 18px;
     background: grey;
 
