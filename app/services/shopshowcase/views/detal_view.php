@@ -357,14 +357,14 @@
       <h1 class="info__title"><?= $product->name ?></h1>
       <span class="info__price"><?= number_format($product->price, 0, ' ', ' ')  ?> грн</span>
       <div class="info__address">
-
-
         <?php foreach ($product->options as $item) { ?>
-
-          <?php if ($item->name == 'Площа' || $item->name == 'Господарство') { ?>
-            <span><?= is_array($item->value) ? "Господарство - " . $item->value[1]->name : "Площа - " . $item->value ?></span>
-          <?php }
-        } ?>
+          <?php if ($item->name == 'Площа') { ?>
+            <span><?= "Площа - " . $item->value ?> </span>
+          <?php } ?>
+          <?php if ($item->name == 'Господарство' && isset($item->value) && count($item->value) > 1) {  ?>
+            <span><?= "Господарство - " . $item->value[1]->name ?></span>
+          <?php } ?>
+        <?php } ?>
       </div>
     </div>
     <button class="info__favorite">
