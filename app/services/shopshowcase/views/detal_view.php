@@ -336,6 +336,11 @@
 */ ?>
 
 <?php $item_bcg = IMG_PATH .  $_SESSION['alias']->images[0]->org_path ?>
+<pre>
+        <?php
+        print_r($product->options);
+        ?>
+        </pre>
 <section class="info" style='background: url("<?= $item_bcg ?>") no-repeat; background-size: cover;'>
   <div class="info__filter"></div>
   <div class="info__wrap content-block">
@@ -353,10 +358,12 @@
       <span class="info__price"><?= number_format($product->price, 0, ' ', ' ')  ?> грн</span>
       <div class="info__address">
 
+
         <?php foreach ($product->options as $item) { ?>
+
           <?php if ($item->name == 'Площа' || $item->name == 'Господарство') { ?>
-            <span><?= is_object($item->value) ? "Господарство - " . $item->value->name : "Плоша - " . $item->value ?></span>
-        <?php }
+            <span><?= is_array($item->value) ? "Господарство - " . $item->value[1]->name : "Площа - " . $item->value ?></span>
+          <?php }
         } ?>
       </div>
     </div>
