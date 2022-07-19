@@ -143,12 +143,12 @@ $products = $this->load->function_in_alias('catalog', '__get_Products');
 		?>
   </div>
 
-  <div class="item-wrap__btn-wrap">
-    <a href="<?= SITE_URL ?>catalog"
-       class="green-btn"
-       type="button"> <?= $this->text('Перейти в каталог', 0) ?>
-    </a>
-  </div>
+	<div class="item-wrap__btn-wrap pagination-wrap">
+		<?php
+		$this->load->library('paginator');
+		echo $this->paginator->get();
+		?>
+	</div>
 </section>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwLJ94dy_JgpTb-uP0QaYfPFFJQmFs4QU">

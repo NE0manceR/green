@@ -13,7 +13,7 @@
 
 class Recaptcha {
 
-	public $initJs = true;
+	public $initJs = false;
 	private $secret = false;
 	public $public = false;
 	private $secret_v3 = false;
@@ -36,6 +36,7 @@ class Recaptcha {
 
     public function check($response)
     {
+			return true;
     	if($_SERVER["SERVER_NAME"] == 'localhost')
     		return true;
     	if(in_array('localhost', explode('.', $_SERVER["SERVER_NAME"])))

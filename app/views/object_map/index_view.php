@@ -125,26 +125,24 @@
   }
 </style>
 <?php
-$products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20));
+$products = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 100));
 
 $_get = $_GET;
 $_GET = [];
-$productTmp = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 20));
+$productTmp = $this->load->function_in_alias('catalog', '__get_Products', array('limit' => 100));
 $_GET = $_get;
-
-
 
 $productsIdInGroup = [];
 foreach ($productTmp as $p) {
   $productsIdInGroup[] = $p->id;
 }
 $filter = $this->load->function_in_alias('catalog', '__get_OptionsToGroup', compact('productsIdInGroup'));
+
 ?>
 
-<pre>
-<?php
-?>
-</pre>
+<script>
+console.log(<?= json_encode($filter) ?>);
+</script>
 
 <?php
 function category_icon($name)
@@ -198,9 +196,11 @@ function category_icon($name)
         } ?>
 
       </div>
-      <span class="map__title">Ціна</span>
+      <?php
+      /*
+        <span class="map__title">Ціна</span>
       <div id="slider-range" class="price-filter-range" name="rangeInput"></div>
-      <div class="map__input-wrap">
+            <div class="map__input-wrap">
         <div class="map__input-cover">
           <span>Мін. ціна</span>
           <input type="number" min=0 max="9900" oninput="validity.valid||(value='0');" id="min_price" class=" map__range-input" />
@@ -210,11 +210,14 @@ function category_icon($name)
           <input type="number" min=0 max="10000" oninput="validity.valid||(value='10000');" id="max_price" class=" map__range-input" />
         </div>
       </div>
+      */
+      ?>
+
 
       <?php if ($filter) {
         foreach ($filter as $item) { ?>
           <?php if ($item->name == "Господарство") { ?>
-            <span class="map__title">Розташування</span>
+            <span class="map__title"><?= $item->name ?></span>
             <div class="map__select-wrap">
               <select style="width: 100%;" class="js-example-basic-single" name="<?= $item->alias ?>[]" onchange="this.form.submit()">
                 <?php foreach ($item->values as $value) {
@@ -231,8 +234,8 @@ function category_icon($name)
             </div>
           <?php }  ?>
 
-          <?php if ($item->name == "Розмір будинку") { ?>
-            <span class="map__title">Розмір будинку</span>
+          <?php if ($item->name !== "Господарство" && $item->name !== "Тип об'єкту" ) { ?>
+            <span class="map__title"><?= $item->name ?></span>
             <div class="map__input-wrap-radio">
               <?php foreach ($item->values as $value) {
                 $status = '';
@@ -273,7 +276,6 @@ function category_icon($name)
     </div>
   </form>
 </section>
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwLJ94dy_JgpTb-uP0QaYfPFFJQmFs4QU&v=3">
 </script>

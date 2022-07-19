@@ -1,9 +1,31 @@
+<?php
+$get_to = "";
+
+switch ($_SESSION['alias']->link) {
+	case 'catalog/budynky-ta-kotedzhi':
+		$get_to = 7;
+		break;
+
+	case 'catalog/zemelni-diljanky':
+		$get_to = 8;
+		break;
+
+	case 'catalog/komercija':
+		$get_to = 9;
+		break;
+
+	default:
+		break;
+}
+
+?>
+
 <section class="content-block group-title">
 	<div class="title-with-link">
 		<img src="<?= IMG_PATH . $_SESSION['alias']->section['icon']->images[0]->path ?>" alt="icon">
 		<h1 class="section-title"><?= $_SESSION['alias']->name ?></h1>
 		<span class="show-on-map">
-			<a href="">
+			<a href="<?= SERVER_URL ?>object_map?6-typ-obektu[]=<?= $get_to ?>">
 				<img class="show-on-map__icon" src="<?= SERVER_URL ?>style/icons/ic_location-green.svg" alt="icon">
 				<?= $this->text('Переглянути на карті', 0) ?>
 			</a>
@@ -49,7 +71,6 @@
 
 
 </section>
-
 
 <section class="content-block">
 	<div class="objects-map ">
