@@ -336,11 +336,7 @@
 */ ?>
 
 <?php $item_bcg = IMG_PATH .  $_SESSION['alias']->images[0]->org_path ?>
-<pre>
-        <?php
-        print_r($product->options);
-        ?>
-        </pre>
+
 <section class="info" style='background: url("<?= $item_bcg ?>") no-repeat; background-size: cover;'>
   <div class="info__filter"></div>
   <div class="info__wrap content-block">
